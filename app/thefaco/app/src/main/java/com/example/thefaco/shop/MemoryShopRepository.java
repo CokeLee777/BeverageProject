@@ -5,7 +5,7 @@ import java.util.Map;
 
 public class MemoryShopRepository implements ShopRepository{
 
-    private static Map<String, Beverage> store = new HashMap<>();
+    private static final Map<String, Beverage> store = new HashMap<>();
 
     @Override
     public void save(Beverage beverage) {

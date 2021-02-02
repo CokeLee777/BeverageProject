@@ -1,7 +1,7 @@
 package com.example.thefaco.shop;
 
-import android.view.View;
-import android.widget.Button;
+import android.os.Build;
+import android.speech.tts.TextToSpeech;
 
 public class ShopServiceImpl implements ShopService{
 
@@ -12,15 +12,15 @@ public class ShopServiceImpl implements ShopService{
     }
 
     @Override
-    public String voiceGuidance(Button button) {
+    public String voiceGuidance(TextToSpeech tts) {
+
         //버튼을 클릭했을 때 음성안내 (미완성)
-        button.setOnClickListener(new Button.OnClickListener(){
-
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
+            //QUEUE_FLUSH: Queue 값을 초기화한 후 값을 넣는다.
+            tts.speak("구매하실 음료를 말씀해주세요.", TextToSpeech.QUEUE_FLUSH, null, null);
+        } else {
+            tts.speak("구매하실 음료를 말씀해주세요.", TextToSpeech.QUEUE_FLUSH, null);
+        }
 
         return null;
     }
