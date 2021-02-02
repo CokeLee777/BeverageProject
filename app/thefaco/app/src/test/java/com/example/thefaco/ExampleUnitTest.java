@@ -11,8 +11,14 @@ import static org.junit.Assert.*;
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
 public class ExampleUnitTest {
+    //
     @Test
     public void addition_isCorrect() {
+        assertEquals(3, 2 + 1 );
+    }
+    //그냥 태ㅔ스트
+    @Test
+    public void 테스트(){
 
     }
 }
