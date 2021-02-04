@@ -1,6 +1,9 @@
 package com.example.thefaco;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.speech.RecognitionListener;
 import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
@@ -9,6 +12,8 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import com.example.thefaco.client.ClientService;
 import com.example.thefaco.shop.*;
 
@@ -17,6 +22,10 @@ import java.util.Locale;
 public class MainActivity extends AppCompatActivity {
     //컨트롤러
     private static final AppConfig appConfig = new AppConfig();
+    //고객 서비스, 음성 서비스, 저장소 변수
+    private static final ClientService clientService = appConfig.clientService();
+    private static final ShopService shopService = appConfig.shopService();
+    private static final ShopRepository shopRepository = appConfig.shopRepository();
     //TTS 변수 선언
     private TextToSpeech tts;
     //STT를 사용할 intent 와 SpeechRecognizer 초기화
@@ -24,19 +33,26 @@ public class MainActivity extends AppCompatActivity {
     private Intent intent;
     //음성인식 결과를 담을 변수
     private String result;
+    //퍼미션 체크를 위한 변수
+    private final int PERMISSION = 1;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //DB 셋팅
-        setDB();
 
         //음성 버튼
         ImageButton voiceButton = findViewById(R.id.voiceButton);
-        //고객 서비스, 음성 서비스 호출
-        ClientService clientService = appConfig.clientService();
-        ShopService shopService = appConfig.shopService();
+
+        //DB 생성 전 테스트용 객체생성
+        Beverage testBeverage = new Beverage("1-1", "콜라", BottleType.CAN);
+        Beverage testBeverage2 = new Beverage("1-2", "환타", BottleType.CAN);
+        Beverage testBeverage3 = new Beverage("1-3", "사이다", BottleType.CAN);
+        //테스트용 객체 저장소에 넣기
+        shopRepository.save(testBeverage);
+        shopRepository.save(testBeverage2);
+        shopRepository.save(testBeverage3);
 
         //TTS 환경설정
         checkTTS();
@@ -47,22 +63,20 @@ public class MainActivity extends AppCompatActivity {
             shopService.voiceGuidance(tts);
             //음성인식 시작
             startSTT();
+
         });
-
-        Beverage coke = new Beverage("1-1", "콜라", BottleType.CAN);
-
-        //사용자가 말한 음료수 저장소에서 찾아오기
-        //String beverageLocation = clientService.sayBeverageName(result);
-        //Toast.makeText(getApplicationContext(),beverageLocation,Toast.LENGTH_SHORT).show();
-    }
-
-    private void setDB(){
-
 
     }
 
     //음성인식 환경설정
     private void startSTT(){
+        //퍼미션 체크했는데 오류뜸..
+        //STT 퍼미션 체크
+        if(Build.VERSION.SDK_INT >= 23 && ContextCompat.checkSelfPermission(this,
+                Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.INTERNET,
+                    Manifest.permission.RECORD_AUDIO},PERMISSION);
+        }
         //사용자에게 음성을 요구하고 음성 인식기를 통해 전송 시작
         intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         //음성 인식을 위한 음성 인식기의 의도에 사용되는 여분의 키
@@ -100,7 +114,11 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void onEndOfSpeech() {
-
+            //사용자가 말한 음료수 저장소에서 찾아오기
+            String beverageLocation = clientService.sayBeverageName(result);
+            if(beverageLocation != null){
+                Toast.makeText(getApplicationContext(),beverageLocation,Toast.LENGTH_SHORT).show();
+            }
         }
 
         @Override
@@ -170,6 +188,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+
     }
 
     // 앱 종료시

@@ -12,8 +12,11 @@ public class ClientServiceImpl implements ClientService{
 
     @Override
     public String sayBeverageName(String beverageName) {
-
-        String beverageLocation = shopRepository.findBeverageLocation(beverageName);
-        return beverageLocation;
+        if(beverageName != null){
+            String beverageLocation = shopRepository.findBeverageLocation(beverageName);
+            return beverageLocation;
+        } else {
+            return null;
+        }
     }
 }

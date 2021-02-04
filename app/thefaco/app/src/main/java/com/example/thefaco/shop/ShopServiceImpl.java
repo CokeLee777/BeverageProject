@@ -2,8 +2,9 @@ package com.example.thefaco.shop;
 
 import android.os.Build;
 import android.speech.tts.TextToSpeech;
+import com.example.thefaco.MainActivity;
 
-public class ShopServiceImpl implements ShopService{
+public class ShopServiceImpl extends MainActivity implements ShopService{
 
     private final ShopRepository shopRepository;
 
@@ -12,7 +13,7 @@ public class ShopServiceImpl implements ShopService{
     }
 
     @Override
-    public String voiceGuidance(TextToSpeech tts) {
+    public void voiceGuidance(TextToSpeech tts) {
 
         //버튼을 클릭했을 때 음성안내 (미완성)
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
@@ -21,8 +22,6 @@ public class ShopServiceImpl implements ShopService{
         } else {
             tts.speak("구매하실 음료를 말씀해주세요.", TextToSpeech.QUEUE_FLUSH, null);
         }
-
-        return null;
     }
 
     @Override
