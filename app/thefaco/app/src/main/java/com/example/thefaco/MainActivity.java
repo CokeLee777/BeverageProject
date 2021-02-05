@@ -114,11 +114,11 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void onEndOfSpeech() {
-            //사용자가 말한 음료수 저장소에서 찾아오기
-            String beverageLocation = clientService.sayBeverageName(result);
-            if(beverageLocation != null){
-                Toast.makeText(getApplicationContext(),beverageLocation,Toast.LENGTH_SHORT).show();
-            }
+//            //사용자가 말한 음료수 저장소에서 찾아오기
+//            String beverageLocation = clientService.sayBeverageName(result);
+//            if(beverageLocation != null){
+//                Toast.makeText(getApplicationContext(),beverageLocation,Toast.LENGTH_SHORT).show();
+//            }
         }
 
         @Override
