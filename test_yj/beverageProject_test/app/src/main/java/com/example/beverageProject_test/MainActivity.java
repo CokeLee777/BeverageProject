@@ -176,7 +176,15 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onResults(Bundle results) {
 
-            
+            ArrayList<String> matches = results
+                    .getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
+
+            for(int i = 0; i < matches.size() ; i++){
+                result = matches.get(i).substring(11);
+                // 음료를 말씀해 주세요도 저장되길래 뺐음
+
+                Log.e("test1", "onResults text : " + result);
+                st.setText(result);
             }
 
         }
