@@ -139,7 +139,7 @@ public class MainActivity extends AppCompatActivity {
             if(findBeverage == null){
                 String a = "찾으시는 음료가 없습니다.";
                 tv.setText(a);
-                tts_restart(a);
+                tts_restart(null, null);
             } else {
 
                 String a = findLocation + "\n<" + str + ">";
