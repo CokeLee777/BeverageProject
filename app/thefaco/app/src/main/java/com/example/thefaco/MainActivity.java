@@ -140,10 +140,10 @@ public class MainActivity extends AppCompatActivity {
                 tv.setText("찾으시는 음료가 없습니다.");
             } else {
                 String findLocation = findBeverage.getLocation();
-
-                tts_restart(findLocation);
-
-                //tv.setText(findLocation);
+                String a = findLocation + "\n<" + str + ">";
+                String b = a + " 가 맞으신가요?";
+                tts_restart(b);
+                tv.setText(a);
             }
         }
     }
