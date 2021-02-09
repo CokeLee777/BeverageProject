@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
     private static final ShopService shopService = appConfig.shopService();
     private static final ShopRepository shopRepository = appConfig.shopRepository();
     //TTS 변수 선언
-    private TextToSpeech tts;
+    private TextToSpeech tts, tts2;
     //STT를 사용할 intent 와 SpeechRecognizer 초기화
     private SpeechRecognizer sRecognizer;
     private Intent intent;
@@ -140,10 +140,24 @@ public class MainActivity extends AppCompatActivity {
                 tv.setText("찾으시는 음료가 없습니다.");
             } else {
                 String findLocation = findBeverage.getLocation();
-                String a = findLocation + "\n<" + str + '>';
-                tv.setText(a);
+
+                tts_restart(findLocation);
+
+                //tv.setText(findLocation);
             }
         }
+    }
+
+    private void tts_restart(String s){
+        //음료 위치 tts 안내
+        tts2 = new TextToSpeech(this, status -> {
+            if(status == TextToSpeech.SUCCESS) {
+                //언어 선택
+                tts2.setLanguage(Locale.KOREAN);
+                tts2.speak(s, TextToSpeech.QUEUE_FLUSH, null);
+
+            }
+        });
     }
 
     //음성인식 환경설정
@@ -264,6 +278,11 @@ public class MainActivity extends AppCompatActivity {
         if (tts != null) {
             tts.stop();
             tts.shutdown();
+        }
+
+        if (tts2 != null) {
+            tts2.stop();
+            tts2.shutdown();
         }
 
         super.onDestroy();
