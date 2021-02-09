@@ -137,7 +137,9 @@ public class MainActivity extends AppCompatActivity {
             Beverage findBeverage = clientService.findBeverage(str);
             String findLocation = findBeverage.getLocation();
             if(findBeverage == null){
-                tv.setText("찾으시는 음료가 없습니다.");
+                String a = "찾으시는 음료가 없습니다.";
+                tv.setText(a);
+                tts_restart(a);
             } else {
 
                 String a = findLocation + "\n<" + str + ">";
