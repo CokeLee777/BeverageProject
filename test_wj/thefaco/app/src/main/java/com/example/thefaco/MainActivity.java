@@ -1,4 +1,4 @@
-package com.example.beverageProject_test;
+package com.example.thefaco;
 
 import android.Manifest;
 import android.content.Intent;
@@ -8,23 +8,15 @@ import android.speech.RecognitionListener;
 import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
 import android.speech.tts.TextToSpeech;
-import android.util.Log;
 import android.widget.ImageButton;
-import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-import com.example.beverageProject_test.client.ClientService;
-import com.example.beverageProject_test.shop.*;
-import com.example.beverageProject_test.R;
+import com.example.thefaco.client.ClientService;
+import com.example.thefaco.shop.*;
 
-import android.util.Log;
-
-import org.w3c.dom.Text;
-
-import java.util.ArrayList;
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
@@ -32,8 +24,8 @@ public class MainActivity extends AppCompatActivity {
     private static final AppConfig appConfig = new AppConfig();
     //고객 서비스, 음성 서비스, 저장소 변수
     private static final ClientService clientService = appConfig.clientService();
-    private static final com.example.beverageProject_test.shop.ShopService shopService = appConfig.shopService();
-    private static final com.example.beverageProject_test.shop.ShopRepository shopRepository = appConfig.shopRepository();
+    private static final ShopService shopService = appConfig.shopService();
+    private static final ShopRepository shopRepository = appConfig.shopRepository();
     //TTS 변수 선언
     private TextToSpeech tts;
     //STT를 사용할 intent 와 SpeechRecognizer 초기화
@@ -44,23 +36,19 @@ public class MainActivity extends AppCompatActivity {
     //퍼미션 체크를 위한 변수
     private final int PERMISSION = 1;
 
-    TextView st;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        st = findViewById(R.id.Text_say);
-
         //음성 버튼
         ImageButton voiceButton = findViewById(R.id.voiceButton);
 
         //DB 생성 전 테스트용 객체생성
-        com.example.beverageProject_test.shop.Beverage testBeverage = new com.example.beverageProject_test.shop.Beverage("1-1", "콜라", com.example.beverageProject_test.shop.BottleType.CAN);
-        com.example.beverageProject_test.shop.Beverage testBeverage2 = new com.example.beverageProject_test.shop.Beverage("1-2", "환타", com.example.beverageProject_test.shop.BottleType.CAN);
-        com.example.beverageProject_test.shop.Beverage testBeverage3 = new com.example.beverageProject_test.shop.Beverage("1-3", "사이다", com.example.beverageProject_test.shop.BottleType.CAN);
+        Beverage testBeverage = new Beverage("1-1", "콜라", BottleType.CAN);
+        Beverage testBeverage2 = new Beverage("1-2", "환타", BottleType.CAN);
+        Beverage testBeverage3 = new Beverage("1-3", "사이다", BottleType.CAN);
         //테스트용 객체 저장소에 넣기
         shopRepository.save(testBeverage);
         shopRepository.save(testBeverage2);
@@ -106,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
     private RecognitionListener listener = new RecognitionListener() {
         @Override
         public void onReadyForSpeech(Bundle params) {
-            Toast.makeText(getBaseContext(),"음성인식을 시작합니다.",Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(),"음성인식을 시작합니다.",Toast.LENGTH_SHORT).show();
         }
 
         @Override
@@ -126,11 +114,11 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void onEndOfSpeech() {
-            //사용자가 말한 음료수 저장소에서 찾아오기
-            String beverageLocation = clientService.sayBeverageName(result);
-            if(beverageLocation != null){
-                Toast.makeText(getApplicationContext(),beverageLocation,Toast.LENGTH_SHORT).show();
-            }
+//            //사용자가 말한 음료수 저장소에서 찾아오기
+//            String beverageLocation = clientService.sayBeverageName(result);
+//            if(beverageLocation != null){
+//                Toast.makeText(getApplicationContext(),beverageLocation,Toast.LENGTH_SHORT).show();
+//            }
         }
 
         @Override
@@ -138,6 +126,12 @@ public class MainActivity extends AppCompatActivity {
             String message;
 
             switch (error) {
+                case SpeechRecognizer.ERROR_AUDIO:
+                    message = "오디오 에러";
+                    break;
+                case SpeechRecognizer.ERROR_CLIENT:
+                    message = "클라이언트 에러";
+                    break;
                 case SpeechRecognizer.ERROR_INSUFFICIENT_PERMISSIONS:
                     message = "퍼미션 없음";
                     break;
@@ -169,18 +163,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void onResults(Bundle results) {
-
-            ArrayList<String> matches = results
-                    .getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
-
-            for(int i = 0; i < matches.size() ; i++){
-                result = matches.get(i).substring(11);
-                // 음료를 말씀해 주세요도 저장되길래 뺐음
-
-                Log.e("test1", "onResults text : " + result);
-                st.setText(result);
-            }
-
+            result = results.toString();
         }
 
         @Override
