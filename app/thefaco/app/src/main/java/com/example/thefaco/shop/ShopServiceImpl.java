@@ -24,15 +24,4 @@ public class ShopServiceImpl extends MainActivity implements ShopService{
         }
     }
 
-    @Override
-    public String findBeverageByShop(Beverage beverage) {
-        String name = beverage.getName();
-        String beverageLocation = shopRepository.findBeverageLocation(name);
-        if(beverageLocation != null){
-            return beverageLocation;
-        } else {
-            return null;
-        }
-    }
-
 }

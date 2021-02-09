@@ -1,5 +1,6 @@
 package com.example.thefaco.client;
 
+import com.example.thefaco.shop.Beverage;
 import com.example.thefaco.shop.ShopRepository;
 
 public class ClientServiceImpl implements ClientService{
@@ -11,12 +12,12 @@ public class ClientServiceImpl implements ClientService{
     }
 
     @Override
-    public String sayBeverageName(String beverageName) {
-        if(beverageName != null){
-            String beverageLocation = shopRepository.findBeverageLocation(beverageName);
-            return beverageLocation;
-        } else {
-            return null;
-        }
+    public void join(Beverage beverage) {
+        shopRepository.save(beverage);
+    }
+
+    @Override
+    public Beverage findBeverage(String beverageName) {
+        return shopRepository.findByName(beverageName);
     }
 }

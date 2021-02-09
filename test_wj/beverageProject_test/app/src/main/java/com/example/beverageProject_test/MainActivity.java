@@ -34,8 +34,8 @@ public class MainActivity extends AppCompatActivity {
     private static final AppConfig appConfig = new AppConfig();
     //고객 서비스, 음성 서비스, 저장소 변수
     private static final ClientService clientService = appConfig.clientService();
-    private static final com.example.beverageProject_test.shop.ShopService shopService = appConfig.shopService();
-    private static final com.example.beverageProject_test.shop.ShopRepository shopRepository = appConfig.shopRepository();
+    private static final ShopService shopService = appConfig.shopService();
+    private static final ShopRepository shopRepository = appConfig.shopRepository();
     //TTS 변수 선언
     private TextToSpeech tts;
     //STT를 사용할 intent 와 SpeechRecognizer 초기화
@@ -60,9 +60,9 @@ public class MainActivity extends AppCompatActivity {
         ImageButton voiceButton = findViewById(R.id.voiceButton);
 
         //DB 생성 전 테스트용 객체생성
-        com.example.beverageProject_test.shop.Beverage testBeverage = new com.example.beverageProject_test.shop.Beverage("1-1", "콜라", com.example.beverageProject_test.shop.BottleType.CAN);
-        com.example.beverageProject_test.shop.Beverage testBeverage2 = new com.example.beverageProject_test.shop.Beverage("1-2", "환타", com.example.beverageProject_test.shop.BottleType.CAN);
-        com.example.beverageProject_test.shop.Beverage testBeverage3 = new com.example.beverageProject_test.shop.Beverage("1-3", "사이다", com.example.beverageProject_test.shop.BottleType.CAN);
+        Beverage testBeverage = new Beverage("1-1", "콜라", BottleType.CAN);
+        Beverage testBeverage2 = new Beverage("1-2", "환타", BottleType.CAN);
+        Beverage testBeverage3 = new Beverage("1-3", "사이다", BottleType.CAN);
         //테스트용 객체 저장소에 넣기
         shopRepository.save(testBeverage);
         shopRepository.save(testBeverage2);
@@ -140,7 +140,9 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(getBaseContext(), str, Toast.LENGTH_SHORT).show();
 
             TextView tv = findViewById(R.id.Text_say);
-            tv.setText(str);
+
+            String beverageLocation = shopRepository.findBeverageLocation(str);
+            tv.setText(beverageLocation);
         }
     }
 

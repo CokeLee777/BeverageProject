@@ -3,12 +3,16 @@ package com.example.thefaco;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.os.AsyncTask;
 import android.os.Build;
+import android.os.Handler;
 import android.speech.RecognitionListener;
 import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
 import android.speech.tts.TextToSpeech;
+import android.util.Log;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
@@ -17,6 +21,7 @@ import androidx.core.content.ContextCompat;
 import com.example.thefaco.client.ClientService;
 import com.example.thefaco.shop.*;
 
+import java.util.ArrayList;
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
@@ -32,15 +37,17 @@ public class MainActivity extends AppCompatActivity {
     private SpeechRecognizer sRecognizer;
     private Intent intent;
     //음성인식 결과를 담을 변수
-    private String result;
+    private String result = new String();
     //퍼미션 체크를 위한 변수
     private final int PERMISSION = 1;
-
+    TextView st;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        st = findViewById(R.id.Text_say);
 
         //음성 버튼
         ImageButton voiceButton = findViewById(R.id.voiceButton);
@@ -50,9 +57,9 @@ public class MainActivity extends AppCompatActivity {
         Beverage testBeverage2 = new Beverage("1-2", "환타", BottleType.CAN);
         Beverage testBeverage3 = new Beverage("1-3", "사이다", BottleType.CAN);
         //테스트용 객체 저장소에 넣기
-        shopRepository.save(testBeverage);
-        shopRepository.save(testBeverage2);
-        shopRepository.save(testBeverage3);
+        clientService.join(testBeverage);
+        clientService.join(testBeverage2);
+        clientService.join(testBeverage3);
 
         //TTS 환경설정
         checkTTS();
@@ -61,11 +68,77 @@ public class MainActivity extends AppCompatActivity {
         voiceButton.setOnClickListener(view -> {
             //음성안내 시작
             shopService.voiceGuidance(tts);
-            //음성인식 시작
-            startSTT();
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    //음성인식 시작
+                    startSTT();
+                }
+            },2000);
+            // 2초 딜레이 첨부
 
         });
 
+    }
+
+    public class VoiceTask extends AsyncTask<String, Integer, String> {
+        String str = null;
+
+        @Override
+        protected String doInBackground(String... params) {
+            // TODO Auto-generated method stub
+            try {
+                getVoice();
+            } catch (Exception e) {
+                // TODO: handle exception
+            }
+            result = str;
+            return str;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            try {
+
+            } catch (Exception e) {
+                Log.d("onActivityResult", "getImageURL exception");
+            }
+        }
+    }
+
+    private void getVoice() {
+
+        Intent intent = new Intent();
+        intent.setAction(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
+                RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+
+        String language = "ko-KR";
+
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, language);
+        startActivityForResult(intent, 2);
+
+    }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // TODO Auto-generated method stub
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == RESULT_OK) {
+
+            ArrayList<String> results = data
+                    .getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+
+            String str = results.get(0);
+            Toast.makeText(getBaseContext(), str, Toast.LENGTH_SHORT).show();
+
+            TextView tv = findViewById(R.id.Text_say);
+
+            Beverage findBeverage = clientService.findBeverage(str);
+            String findLocation = findBeverage.getLocation();
+
+            tv.setText(findLocation);
+        }
     }
 
     //음성인식 환경설정
@@ -77,18 +150,10 @@ public class MainActivity extends AppCompatActivity {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.INTERNET,
                     Manifest.permission.RECORD_AUDIO},PERMISSION);
         }
-        //사용자에게 음성을 요구하고 음성 인식기를 통해 전송 시작
-        intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
-        //음성 인식을 위한 음성 인식기의 의도에 사용되는 여분의 키
-        intent.putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE, getPackageName());
-        //음성을 번역할 언어 설정
-        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, "ko-KR");
-        //새 SpeechRecognizer 을 만드는 팩토리 메서드
-        sRecognizer = SpeechRecognizer.createSpeechRecognizer(this);
-        //모든 콜백을 수신하는 리스너 설정
-        sRecognizer.setRecognitionListener(listener);
-        //음성인식 시작
-        sRecognizer.startListening(intent);
+
+        VoiceTask voiceTask = new VoiceTask();
+        voiceTask.execute();
+
     }
 
     private RecognitionListener listener = new RecognitionListener() {
@@ -114,11 +179,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void onEndOfSpeech() {
-//            //사용자가 말한 음료수 저장소에서 찾아오기
-//            String beverageLocation = clientService.sayBeverageName(result);
-//            if(beverageLocation != null){
-//                Toast.makeText(getApplicationContext(),beverageLocation,Toast.LENGTH_SHORT).show();
-//            }
+
         }
 
         @Override
@@ -163,7 +224,9 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void onResults(Bundle results) {
-            result = results.toString();
+            ArrayList<String> matches = results
+                    .getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
+
         }
 
         @Override
@@ -179,13 +242,10 @@ public class MainActivity extends AppCompatActivity {
 
     private void checkTTS(){
         //TTS를 생성하고 OnInitListener로 초기화
-        tts = new TextToSpeech(this, new TextToSpeech.OnInitListener() {
-            @Override
-            public void onInit(int status) {
-                if(status == TextToSpeech.SUCCESS) {
-                    //언어 선택
-                    tts.setLanguage(Locale.KOREAN);
-                }
+        tts = new TextToSpeech(this, status -> {
+            if(status == TextToSpeech.SUCCESS) {
+                //언어 선택
+                tts.setLanguage(Locale.KOREAN);
             }
         });
 

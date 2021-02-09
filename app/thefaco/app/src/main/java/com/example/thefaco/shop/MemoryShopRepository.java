@@ -13,13 +13,7 @@ public class MemoryShopRepository implements ShopRepository{
     }
 
     @Override
-    public String findBeverageLocation(String beverageName) {
-        Beverage beverage = store.get(beverageName);
-        String location = beverage.getLocation();
-        if(location != null){
-            return location;
-        } else {
-            return null;
-        }
+    public Beverage findByName(String beverageName){
+        return store.get(beverageName);
     }
 }
