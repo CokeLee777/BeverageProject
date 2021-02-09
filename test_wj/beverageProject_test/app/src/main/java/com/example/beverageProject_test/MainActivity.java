@@ -99,6 +99,7 @@ public class MainActivity extends AppCompatActivity {
             } catch (Exception e) {
                 // TODO: handle exception
             }
+            result = str;
             return str;
         }
 
@@ -241,13 +242,13 @@ public class MainActivity extends AppCompatActivity {
             ArrayList<String> matches = results
                     .getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
 
-            for(int i = 0; i < matches.size() ; i++){
-                result = matches.get(i).substring(11);
-                // 음료를 말씀해 주세요도 저장되길래 뺐음
-
-                Log.e("test1", "onResults text : " + result);
-                st.setText(result);
-            }
+//            for(int i = 0; i < matches.size() ; i++){
+//                result = matches.get(i).substring(4);
+//                // 음료를 말씀해 주세요도 저장되길래 뺐음
+//
+//                Log.e("test1", "onResults text : " + result);
+//                st.setText(result);
+//            }
 
         }
 
