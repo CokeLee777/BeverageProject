@@ -134,10 +134,14 @@ public class MainActivity extends AppCompatActivity {
 
             TextView tv = findViewById(R.id.Text_say);
 
-            Beverage findBeverage = clientService.findBeverage(str);
-            String findLocation = findBeverage.getLocation();
 
-            tv.setText(findLocation);
+            Beverage findBeverage = clientService.findBeverage(str);
+            if(findBeverage == null){
+                tv.setText("찾으시는 음료가 없습니다.");
+            } else {
+                String findLocation = findBeverage.getLocation();
+                tv.setText(findLocation);
+            }
         }
     }
 

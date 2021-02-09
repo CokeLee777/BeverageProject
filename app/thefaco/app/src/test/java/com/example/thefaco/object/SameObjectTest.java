@@ -32,6 +32,19 @@ public class SameObjectTest {
 
     }
 
+    @Test
+    public void NullTest(){
+        Beverage coke = new Beverage("1-1", "콜라", BottleType.CAN);
+        Beverage water = new Beverage("1-2", "물", BottleType.BOTTLE);
+
+        clientService.join(coke);
+        clientService.join(water);
+
+        Beverage findBeverage = clientService.findBeverage("안녕");
+        Assert.assertSame(findBeverage, null);
+
+    }
+
     public void setDB(ShopRepository shopRepository){
 
     }
