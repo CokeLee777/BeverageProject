@@ -134,28 +134,28 @@ public class MainActivity extends AppCompatActivity {
 
             TextView tv = findViewById(R.id.Text_say);
 
-
             Beverage findBeverage = clientService.findBeverage(str);
+            String findLocation = findBeverage.getLocation();
             if(findBeverage == null){
                 tv.setText("찾으시는 음료가 없습니다.");
             } else {
-                String findLocation = findBeverage.getLocation();
+
                 String a = findLocation + "\n<" + str + ">";
                 String b = a + " 가 맞으신가요?";
-                tts_restart(b);
+                tts_restart(str, findLocation);
                 tv.setText(a);
             }
         }
     }
 
-    private void tts_restart(String s){
+    private void tts_restart(String name, String location){
         //음료 위치 tts 안내
         tts2 = new TextToSpeech(this, status -> {
             if(status == TextToSpeech.SUCCESS) {
                 //언어 선택
                 tts2.setLanguage(Locale.KOREAN);
-                tts2.speak(s, TextToSpeech.QUEUE_FLUSH, null);
-
+                //tts2.speak(s, TextToSpeech.QUEUE_FLUSH, null);
+                shopService.voiceGuidance2(tts2, name, location);
             }
         });
     }
