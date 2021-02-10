@@ -82,6 +82,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public class VoiceTask extends AsyncTask<String, Integer, String> {
+
         String str = null;
 
         @Override
@@ -130,12 +131,25 @@ public class MainActivity extends AppCompatActivity {
                     .getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
 
             String str = results.get(0);
-            Toast.makeText(getBaseContext(), str, Toast.LENGTH_SHORT).show();
 
+            String sentence = str;
+            String[] array = sentence.split(" ");
+
+
+            for(int i=0;i<array.length;i++) {
+                //System.out.println(array[i]);
+                Beverage findBeverage = clientService.findBeverage(array[i]);
+                if(findBeverage != null){
+                    sentence = array[i];
+                    break;
+                }
+            }
+
+            Toast.makeText(getBaseContext(), str, Toast.LENGTH_SHORT).show();
             TextView tv = findViewById(R.id.Text_say);
 
 
-            Beverage findBeverage = clientService.findBeverage(str);
+            Beverage findBeverage = clientService.findBeverage(sentence);
             String findLocation = findBeverage.getLocation();
 
             if(findBeverage == null){
@@ -144,8 +158,8 @@ public class MainActivity extends AppCompatActivity {
                 tts_restart(null, null);
             } else {
 
-                String a = findLocation + "\n<" + str + ">";
-                tts_restart(str, findLocation);
+                String a = findLocation + "\n<" + sentence + ">";
+                tts_restart(sentence, findLocation);
                 tv.setText(a);
             }
         }
