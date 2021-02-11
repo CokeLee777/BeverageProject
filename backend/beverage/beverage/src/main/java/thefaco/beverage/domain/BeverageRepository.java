@@ -1,22 +1,9 @@
 package thefaco.beverage.domain;
 
-import org.springframework.stereotype.Repository;
+public interface BeverageRepository {
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+    Long save(Beverage beverage);
+    Beverage find(Long id);
+    void update(Long id, String name, int price, int size, String type);
 
-@Repository
-public class BeverageRepository {
-
-    @PersistenceContext
-    private EntityManager em;
-
-    public Long save(Beverage beverage){
-        em.persist(beverage);
-        return beverage.getId();
-    }
-
-    public Beverage find(Long id){
-        return em.find(Beverage.class, id);
-    }
 }

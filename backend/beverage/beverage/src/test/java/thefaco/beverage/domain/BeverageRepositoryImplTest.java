@@ -3,19 +3,17 @@ package thefaco.beverage.domain;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
-class BeverageRepositoryTest {
+class BeverageRepositoryImplTest {
 
-    @Autowired BeverageRepository beverageRepository;
-
+    @Autowired
+    BeverageRepositoryImpl beverageRepository;
     @Test
     @Transactional
-    @Rollback(false)
     public void testBeverage() throws Exception{
         //given
         Beverage beverage = new Beverage();
@@ -25,7 +23,11 @@ class BeverageRepositoryTest {
         Long savedId = beverageRepository.save(beverage);
         Beverage findBeverage = beverageRepository.find(savedId);
         //then
+        assertThat(beverage.getName()).isEqualTo(findBeverage.getName());
+        assertThat(beverage.getId()).isEqualTo(findBeverage.getId());
+        assertThat(beverage.getPrice()).isEqualTo(findBeverage.getPrice());
 
-
+        Beverage beverage1 = beverageRepository.find(5L);
+        assertThat(beverage1).isEqualTo(null);
     }
 }
