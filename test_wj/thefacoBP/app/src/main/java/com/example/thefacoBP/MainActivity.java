@@ -150,13 +150,14 @@ public class MainActivity extends AppCompatActivity {
 
 
             Beverage findBeverage = clientService.findBeverage(sentence);
-            String findLocation = findBeverage.getLocation();
+            //String findLocation = findBeverage.getLocation();
 
             if(findBeverage == null){
                 String a = "찾으시는 음료가 없습니다.";
                 tv.setText(a);
                 tts_restart(null, null);
             } else {
+                String findLocation = findBeverage.getLocation();
                 String a = findLocation + "\n<" + sentence + ">";
                 tts_restart(sentence, findLocation);
                 tv.setText(a);
