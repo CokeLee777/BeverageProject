@@ -4,9 +4,7 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 @Getter @Setter
@@ -14,13 +12,17 @@ import javax.persistence.Id;
 public class Beverage {
 
     @Id @GeneratedValue
+    @Column(name = "beverage_id")
     private Long id;
 
     private String name;
 
     private int price;
 
-    private String type;
+    @Enumerated(EnumType.STRING)
+    private BeverageType type;
 
     private int size;
+
+    //==음료 생성 메서드==//
 }

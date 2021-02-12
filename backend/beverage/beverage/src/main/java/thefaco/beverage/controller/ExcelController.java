@@ -7,14 +7,14 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import thefaco.beverage.domain.Beverage;
-import thefaco.beverage.domain.BeverageRepository;
+import thefaco.beverage.domain.BeverageType;
+import thefaco.beverage.repository.BeverageRepository;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -58,7 +58,7 @@ public class ExcelController {
             beverage.setName(row.getCell(1).getStringCellValue());
             beverage.setPrice((int)row.getCell(2).getNumericCellValue());
             beverage.setSize((int)row.getCell(3).getNumericCellValue());
-            beverage.setType(row.getCell(4).getStringCellValue());
+            beverage.setType(BeverageType.valueOf(row.getCell(4).getStringCellValue()));
 
             dataList.add(beverage);
         }
