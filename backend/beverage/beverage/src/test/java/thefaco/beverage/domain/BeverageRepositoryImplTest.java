@@ -11,11 +11,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SpringBootTest
 class BeverageRepositoryImplTest {
 
-    @Autowired
-    BeverageRepositoryImpl beverageRepository;
+    @Autowired BeverageRepositoryImpl beverageRepository;
+
     @Test
     @Transactional
-    public void testBeverage() throws Exception{
+    public void testBeverage() throws Exception {
         //given
         Beverage beverage = new Beverage();
         beverage.setName("콜라");

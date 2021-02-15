@@ -7,20 +7,17 @@ import lombok.Setter;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "beverageLocation")
 @Getter @Setter
 @RequiredArgsConstructor
-public class Beverage {
+public class BeverageLocation {
 
     @Id @GeneratedValue
     private Long id;
 
-    private String name;
+    private String c1;
+    private String c2;
+    private String c3;
+    private String c4;
 
-    private int price;
-
-    private String type;
-
-    private int size;
-
-    //==생성 메서드
 }

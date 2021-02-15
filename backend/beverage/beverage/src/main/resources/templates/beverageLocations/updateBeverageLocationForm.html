@@ -1,0 +1,35 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header" />
+<body>
+<div class="container">
+    <div th:replace="fragments/bodyHeader :: bodyHeader"/>
+    <form th:object="${form}" method="post">
+        <!-- id -->
+        <input type="hidden" th:field="*{id}" />
+        <div class="form-group">
+            <label th:for="id">행</label>
+            <input type="number" th:field="*{id}" class="form-control"/>
+        </div>
+        <div class="form-group">
+            <label th:for="c1">1열</label>
+            <input type="text" th:field="*{c1}" class="form-control" placeholder="1열을 입력하세요" />
+        </div>
+        <div class="form-group">
+            <label th:for="c2">2열</label>
+            <input type="text" th:field="*{c2}" class="form-control" placeholder="2열을 입력하세요" />
+        </div>
+        <div class="form-group">
+            <label th:for="c3">3열</label>
+            <input type="text" th:field="*{c3}" class="form-control" placeholder="3열를 입력하세요" />
+        </div>
+        <div class="form-group">
+            <label th:for="c4">4열</label>
+            <input type="text" th:field="*{c4}" class="form-control" placeholder="4열를 입력하세요" />
+        </div>
+        <button type="submit" class="btn btn-primary">수정</button>
+    </form>
+    <div th:replace="fragments/footer :: footer" />
+</div> <!-- /container -->
+</body>
+</html>

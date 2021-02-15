@@ -31,13 +31,13 @@ public class BeverageRepositoryImpl implements BeverageRepository {
 
     @Override
     public List<Beverage> findAll() {
-        return em.createQuery("select m from Beverage b", Beverage.class)
+        return em.createQuery("select b from Beverage b", Beverage.class)
                 .getResultList();
     }
 
     @Override
     public List<Beverage> findByName(String name) {
-        return em.createQuery("select m from Beverage b where b.name = :name", Beverage.class)
+        return em.createQuery("select b from Beverage b where b.name = :name", Beverage.class)
                 .setParameter("name", name)
                 .getResultList();
     }
