@@ -75,4 +75,7 @@ public class BeverageController {
         beverageService.save(beverage);
         return "redirect:/beverages";
     }
+
+    //음료 삭제
+
 }
