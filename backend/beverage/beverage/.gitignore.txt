@@ -1,2 +1,4 @@
 resources/application.yml
 resources/test.txt
+backend/beverage/beverage/src\main/resources/application.yml
+backend/beverage/beverage/src\main/resources/test.txt
