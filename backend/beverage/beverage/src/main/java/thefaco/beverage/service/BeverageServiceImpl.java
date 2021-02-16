@@ -23,6 +23,12 @@ public class BeverageServiceImpl implements BeverageService{
     }
 
     @Override
+    @Transactional
+    public void delete(Beverage beverage) {
+        beverageRepository.delete(beverage);
+    }
+
+    @Override
     public List<Beverage> findBeverages() {
         return beverageRepository.findAll();
     }

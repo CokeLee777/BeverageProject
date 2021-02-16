@@ -77,5 +77,8 @@ public class BeverageController {
     }
 
     //음료 삭제
-
+//    @PostMapping("/beverages/delete")
+//    public String deleteBeverage(@PathVariable String beverageId, @ModelAttribute("form") BeverageForm form){
+//
+//    }
 }

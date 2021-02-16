@@ -25,6 +25,11 @@ public class BeverageRepositoryImpl implements BeverageRepository {
     }
 
     @Override
+    public void delete(Beverage beverage) {
+        em.remove(beverage);
+    }
+
+    @Override
     public Beverage findOne(Long id){
         return em.find(Beverage.class, id);
     }
