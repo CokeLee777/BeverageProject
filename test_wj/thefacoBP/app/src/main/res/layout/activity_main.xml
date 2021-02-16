@@ -9,13 +9,16 @@
 
     <ImageButton
         android:id="@+id/voiceButton"
-        android:layout_width="176dp"
-        android:layout_height="306dp"
+        android:layout_width="273dp"
+        android:layout_height="316dp"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/presence_audio_online" />
+        app:layout_constraintVertical_bias="0.521"
+        app:srcCompat="@drawable/mic"
+        android:background='#00FFFFFF'/>
 
     <TextView
         android:id="@+id/Text_say"
