@@ -53,7 +53,7 @@ net.setPreferableBackend(cv.dnn.DNN_BACKEND_CUDA)
 net.setPreferableTarget(cv.dnn.DNN_TARGET_CUDA)
 
 #cap = cv.VideoCapture('table2.mp4')
-cap = cv.VideoCapture('table3.mp4')
+cap = cv.VideoCapture(0)
 
 inputHeight = 368
 inputWidth = 368
@@ -61,7 +61,7 @@ inputScale = 1.0/255
 
 while cv.waitKey(1) < 0:
     hasFrame, frame = cap.read()
-    frame = cv.resize(frame, dsize=(320, 240), interpolation=cv.INTER_AREA)
+    #frame = cv.resize(frame, dsize=(320, 240), interpolation=cv.INTER_AREA)
 
     if not hasFrame:
         cv.waitKey()
@@ -86,6 +86,9 @@ while cv.waitKey(1) < 0:
         if conf > threshold:
             cv.circle(frame, (x, y), 3, (0, 255, 255), thickness=-1, lineType=cv.FILLED)
             cv.putText(frame, "{}".format(i), (x, y), cv.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 255), 1, lineType=cv.LINE_AA)
+            if i == 8:
+                print(x,y)
+            #print( "{}".format(i))
             points.append((x, y))
         else:
             points.append(None)
