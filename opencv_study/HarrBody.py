@@ -2,7 +2,7 @@ import numpy as np
 import cv2
 
 body_classifier = cv2.CascadeClassifier('haarcascade_fullbody.xml')
-cap = cv2.VideoCapture('people1.mp4')
+cap = cv2.VideoCapture(0)
 cam = cv2.VideoWriter('harr.avi',cv2.VideoWriter_fourcc('D', 'I', 'V', 'X'),25,(800,600))
 while cap.isOpened():
     ret,img = cap.read()

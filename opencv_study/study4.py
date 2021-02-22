@@ -53,7 +53,8 @@ net.setPreferableBackend(cv.dnn.DNN_BACKEND_CUDA)
 net.setPreferableTarget(cv.dnn.DNN_TARGET_CUDA)
 
 #cap = cv.VideoCapture('table2.mp4')
-cap = cv.VideoCapture(0)
+cap = cv.VideoCapture('table4.mp4')
+cam = cv.VideoWriter('cokeVScider.avi',cv.VideoWriter_fourcc('D', 'I', 'V', 'X'),25,(600,400))
 
 inputHeight = 368
 inputWidth = 368
@@ -61,8 +62,7 @@ inputScale = 1.0/255
 
 while cv.waitKey(1) < 0:
     hasFrame, frame = cap.read()
-    #frame = cv.resize(frame, dsize=(320, 240), interpolation=cv.INTER_AREA)
-
+    frame = cv.resize(frame, dsize=(600, 400), interpolation=cv.INTER_AREA)
     if not hasFrame:
         cv.waitKey()
         break
@@ -88,7 +88,13 @@ while cv.waitKey(1) < 0:
             cv.putText(frame, "{}".format(i), (x, y), cv.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 255), 1, lineType=cv.LINE_AA)
             if i == 8:
                 print(x,y)
-            #print( "{}".format(i))
+                cv.putText(frame, 'x :'+"{}".format(x), (10, 40), cv.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0), 1, lineType=cv.LINE_AA)
+                cv.putText(frame, 'y :'+"{}".format(y), (10, 60), cv.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0), 1, lineType=cv.LINE_AA)
+                if x > 300:
+                    cv.putText(frame, 'BP :'+"COKE", (10, 80), cv.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0), 1, lineType=cv.LINE_AA)
+                else:
+                    cv.putText(frame, 'BP :'+"CIDER", (10, 80), cv.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0), 1, lineType=cv.LINE_AA)
+            
             points.append((x, y))
         else:
             points.append(None)
@@ -106,6 +112,14 @@ while cv.waitKey(1) < 0:
 
     t, _ = net.getPerfProfile()
     freq = cv.getTickFrequency() / 1000
-    cv.putText(frame, '%.2fms' % (t / freq), (10, 20), cv.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0))
+    cv.putText(frame, '%.2fms' % (t / freq), (10, 20), cv.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0), 1, lineType=cv.LINE_AA)
     #frame = cv.resize(frame,(640,480))
     cv.imshow('OpenPose using OpenCV', frame)
+    #frame = cv.resize(frame,(600,400))
+    cam.write(frame)
+    ch = cv.waitKey(30)& 0xff
+    if ch == 27:
+        print('끗')
+        break
+cam.release()
+cv.destroyAllWindows()
