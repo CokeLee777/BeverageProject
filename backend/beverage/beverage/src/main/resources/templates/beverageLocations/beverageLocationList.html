@@ -26,6 +26,9 @@
                 <td>
                     <a href="#" th:href="@{/beverageLocations/{id}/edit (id=${beverageLocation.id})}" class="btn btn-primary" role="button">수정</a>
                 </td>
+                <td>
+                    <a href="#" th:href="'javascript:cancel('+${beverageLocation.id}+')'" class="btn btn-danger">삭제</a>
+                </td>
             </tr>
             </tbody>
         </table>
@@ -33,4 +36,13 @@
     <div th:replace="fragments/footer :: footer"/>
 </div> <!-- /container -->
 </body>
+<script>
+ function cancel(id) {
+ var form = document.createElement("form");
+ form.setAttribute("method", "post");
+ form.setAttribute("action", "/beverageLocations/" + id + "/cancel");
+ document.body.appendChild(form);
+ form.submit();
+ }
+</script>
 </html>

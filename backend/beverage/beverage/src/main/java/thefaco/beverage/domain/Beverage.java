@@ -22,5 +22,4 @@ public class Beverage {
 
     private int size;
 
-    //==생성 메서드
 }

@@ -24,7 +24,19 @@ public class BeverageServiceImpl implements BeverageService{
 
     @Override
     @Transactional
-    public void delete(Beverage beverage) {
+    public void update(Long beverageId, String name, int price, String type, int size) {
+        Beverage findBeverage = beverageRepository.findOne(beverageId);
+        findBeverage.setName(name);
+        findBeverage.setPrice(price);
+        findBeverage.setType(type);
+        findBeverage.setSize(size);
+    }
+
+    @Override
+    @Transactional
+    public void delete(Long beverageId) {
+        Beverage beverage = beverageRepository.findOne(beverageId);
+        //음료 삭제
         beverageRepository.delete(beverage);
     }
 

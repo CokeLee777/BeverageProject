@@ -21,6 +21,23 @@ public class BeverageLocationServiceImpl implements BeverageLocationService{
         beverageLocationRepository.save(beverageLocation);
     }
 
+    @Transactional
+    @Override
+    public void update(Long beverageLocationId, String c1, String c2, String c3, String c4) {
+        BeverageLocation findBeverageLocation = beverageLocationRepository.findOne(beverageLocationId);
+        findBeverageLocation.setC1(c1);
+        findBeverageLocation.setC2(c2);
+        findBeverageLocation.setC3(c3);
+        findBeverageLocation.setC4(c4);
+    }
+
+    @Transactional
+    @Override
+    public void delete(Long beverageLocationId) {
+        BeverageLocation beverageLocation = beverageLocationRepository.findOne(beverageLocationId);
+        beverageLocationRepository.delete(beverageLocation);
+    }
+
     @Override
     public List<BeverageLocation> findBeverageLocations() {
         return beverageLocationRepository.findAll();

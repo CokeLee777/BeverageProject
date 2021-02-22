@@ -3,10 +3,7 @@ package thefaco.beverage.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import thefaco.beverage.domain.Beverage;
 import thefaco.beverage.service.BeverageService;
 
@@ -63,22 +60,17 @@ public class BeverageController {
 
     //음료 수정
     @PostMapping("/beverages/{beverageId}/edit")
-    public String updateBeverage(@PathVariable String beverageId, @ModelAttribute("form") BeverageForm form){
+    public String updateBeverage(@PathVariable Long beverageId, @ModelAttribute("form") BeverageForm form){
 
-        Beverage beverage = new Beverage();
-        beverage.setId(form.getId());
-        beverage.setName(form.getName());
-        beverage.setPrice(form.getPrice());
-        beverage.setType(form.getType());
-        beverage.setSize(form.getSize());
+        beverageService.update(beverageId, form.getName(), form.getPrice(), form.getType(), form.getSize());
 
-        beverageService.save(beverage);
         return "redirect:/beverages";
     }
 
     //음료 삭제
-//    @PostMapping("/beverages/delete")
-//    public String deleteBeverage(@PathVariable String beverageId, @ModelAttribute("form") BeverageForm form){
-//
-//    }
+    @PostMapping("/beverages/{beverageId}/cancel")
+    public String deleteBeverage(@PathVariable("beverageId") Long beverageId){
+        beverageService.delete(beverageId);
+        return "redirect:/beverages";
+    }
 }

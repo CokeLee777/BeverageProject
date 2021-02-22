@@ -76,4 +76,10 @@ public class BeverageLocationController {
         beverageLocationService.save(beverageLocation);
         return "redirect:/beverageLocations";
     }
+
+    @PostMapping("/beverageLocations/{beverageLocationId}/cancel")
+    public String deleteBeverageLocation(@PathVariable("beverageLocationId") Long beverageLocationId){
+        beverageLocationService.delete(beverageLocationId);
+        return "redirect:/beverageLocations";
+    }
 }

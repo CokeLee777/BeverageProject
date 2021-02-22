@@ -23,6 +23,11 @@ public class BeverageLocationRepositoryImpl implements BeverageLocationRepositor
     }
 
     @Override
+    public void delete(BeverageLocation beverageLocation) {
+        em.remove(beverageLocation);
+    }
+
+    @Override
     public BeverageLocation findOne(Long id) {
         return em.find(BeverageLocation.class, id);
     }
