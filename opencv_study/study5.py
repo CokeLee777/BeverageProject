@@ -55,7 +55,7 @@ net.setPreferableTarget(cv.dnn.DNN_TARGET_CUDA)
 
 #cap = cv.VideoCapture('table2.mp4')
 cap = cv.VideoCapture(0)
-cam = cv.VideoWriter('cokeVScider.avi',cv.VideoWriter_fourcc('D', 'I', 'V', 'X'),25,(600,400))
+cam = cv.VideoWriter('cokeVScider01.avi',cv.VideoWriter_fourcc('D', 'I', 'V', 'X'),25,(600,400))
 start_time = timeit.default_timer() # 시작 시간 체크
 inputHeight = 368
 inputWidth = 368
@@ -76,7 +76,7 @@ while cv.waitKey(1) < 0:
     out = net.forward()
 
     points = []
-    print(cv.CAP_PROP_POS_MSEC*100)
+    ##print(cv.CAP_PROP_POS_MSEC*100)
 
     start_time2 = timeit.default_timer() # 측정 시작 시간 체크
     check_time = int(start_time2 - start_time)
