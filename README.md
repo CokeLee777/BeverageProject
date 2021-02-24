@@ -32,7 +32,7 @@
 * 정확도 향상을 위해 머신러닝을 이용한다.  
 
 ### 3-1. 객체인식의 이용(Open CV, Python)
-* 시험 테스트:
+* 시험 테스트:  
 [![Watch the video](opencv_study/cokeVScider01sample.gif)]([https://www.youtube.com/watch?v=0-q1KafFCLU])
 
 ### 3-2. 객체인식의 이용(Open CV, C++)
