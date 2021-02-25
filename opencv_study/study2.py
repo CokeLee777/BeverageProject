@@ -53,7 +53,7 @@ net.setPreferableBackend(cv.dnn.DNN_BACKEND_CUDA)
 net.setPreferableTarget(cv.dnn.DNN_TARGET_CUDA)
 
 #cap = cv.VideoCapture('table2.mp4')
-cap = cv.VideoCapture(0)
+cap = cv.VideoCapture('table3.mp4')
 
 inputHeight = 368
 inputWidth = 368

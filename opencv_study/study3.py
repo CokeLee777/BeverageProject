@@ -55,7 +55,7 @@ def MouseLeftClick(event, x, y, flags, param):
 def GetArgument():
     ap = argparse.ArgumentParser()
     #--path=C:\ --sampling=3
-    ap.add_argument("--path ", required=True, help="Enter the image files path")
+    ap.add_argument("--path", required=True, help="Enter the image files path")
     ap.add_argument("--sampling", default=1, help="Enter the sampling number.(default = 1)")
     args = vars(ap.parse_args())
     path = args['path']
@@ -93,7 +93,9 @@ def main():
     now_str = "%s%02d%02d_%02d%02d%02d" % (now.year - 2000, now.month, now.day, now.hour, now.minute, now.second)   
 
     # 새 윈도우 창을 만들고 그 윈도우 창에 click_and_crop 함수를 세팅해 줍니다.
+    # 크기조절 해야겠음
     cv2.namedWindow("image")
+    cv2.resizeWindow("image", 640, 480)
     cv2.setMouseCallback("image", MouseLeftClick)
 
     for idx, image_name in enumerate(image_names):
