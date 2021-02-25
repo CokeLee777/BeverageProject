@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
 
         st = findViewById(R.id.Text_say);
 
-        //====== Server 통신 ======//
+        //================================= Server 통신 ============================================//
 
         RequestQueue queue = Volley.newRequestQueue(this);
         String url = "http://192.168.219.124:8080/findBeverageInfo";
@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        Log.d("result", "[" + response + "]");
+                        Log.d("result", response);
                     }
                 },
                 // 에러 발생 시
@@ -80,14 +80,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
-                params.put("param1", "isGood");
+                params.put("param1", "사이다");
                 return  params;
             }
         };
 
         queue.add(request);
 
-        //====== Server 통신 ======//
+        //================================= Server 통신 ============================================//
 
         //음성 버튼
         ImageButton voiceButton = findViewById(R.id.voiceButton);

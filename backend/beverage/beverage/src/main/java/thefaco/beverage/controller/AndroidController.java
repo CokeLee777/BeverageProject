@@ -22,15 +22,17 @@ public class AndroidController {
     @RequestMapping(method = RequestMethod.POST, value="/findBeverageInfo")
     public @ResponseBody String android(HttpServletRequest httpServletRequest) {
         String result = null;
-
-        List<Beverage> findBeverages = beverageService.findBeveragesByName("펩시");
-
         String param1 = httpServletRequest.getParameter("param1");
 
-        for(Beverage findbeverage: findBeverages){
-            if(param1.equals("isGood")) {
+        List<Beverage> findBeverages = beverageService.findBeveragesByName(param1);
+
+        //DB에서 찾은 음료가 있으면
+        if(!findBeverages.isEmpty()){
+            for(Beverage findbeverage: findBeverages){
                 result = findbeverage.toString();
             }
+        } else {
+            result = "찾으시는 음료가 없습니다.";
         }
 
         return result;
