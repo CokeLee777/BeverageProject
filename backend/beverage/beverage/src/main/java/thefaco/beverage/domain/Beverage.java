@@ -22,4 +22,13 @@ public class Beverage {
 
     private int size;
 
+    @Override
+    public String toString() {
+        return "음료 " +
+                "이름은'" + name + '\'' +
+                ", 가격은'" + price + "원" + '\'' +
+                ", 종류는'" + type + '\'' +
+                ", 크기는'" + size + '\'' + "입니다" +
+                ' ';
+    }
 }

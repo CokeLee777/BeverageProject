@@ -16,4 +16,6 @@ public interface BeverageService {
     List<Beverage> findBeverages();
     //음료 한개 조회
     Beverage findOne(Long beverageId);
+    //음료 이름으로 조회
+    List<Beverage> findBeveragesByName(String name);
 }

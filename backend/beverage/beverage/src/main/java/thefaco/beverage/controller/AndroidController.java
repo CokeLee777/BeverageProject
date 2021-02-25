@@ -1,0 +1,39 @@
+package thefaco.beverage.controller;
+
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import thefaco.beverage.domain.Beverage;
+import thefaco.beverage.service.BeverageLocationService;
+import thefaco.beverage.service.BeverageService;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.List;
+
+@Controller
+@RequiredArgsConstructor
+public class AndroidController {
+
+    private final BeverageService beverageService;
+    private final BeverageLocationService beverageLocationService;
+
+    @RequestMapping(method = RequestMethod.POST, value="/findBeverageInfo")
+    public @ResponseBody String android(HttpServletRequest httpServletRequest) {
+        String result = null;
+
+        List<Beverage> findBeverages = beverageService.findBeveragesByName("펩시");
+
+        String param1 = httpServletRequest.getParameter("param1");
+
+        for(Beverage findbeverage: findBeverages){
+            if(param1.equals("isGood")) {
+                result = findbeverage.toString();
+            }
+        }
+
+        return result;
+    }
+
+}

@@ -18,11 +18,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import com.android.volley.*;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.thefaco.client.ClientService;
 import com.example.thefaco.shop.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
     //컨트롤러
@@ -48,6 +53,41 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         st = findViewById(R.id.Text_say);
+
+        //====== Server 통신 ======//
+
+        RequestQueue queue = Volley.newRequestQueue(this);
+        String url = "http://192.168.219.124:8080/findBeverageInfo";
+
+        //음료 정보 요청
+        StringRequest request = new StringRequest(Request.Method.POST, url,
+                //요청 성공 시
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Log.d("result", "[" + response + "]");
+                    }
+                },
+                // 에러 발생 시
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d("error", "[" + error.getMessage() + "]");
+                    }
+                }) {
+            //요청보낼 때 추가로 파라미터가 필요할 경우
+            //url?a=xxx 이런식으로 보내는 대신에 아래처럼 가능.
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("param1", "isGood");
+                return  params;
+            }
+        };
+
+        queue.add(request);
+
+        //====== Server 통신 ======//
 
         //음성 버튼
         ImageButton voiceButton = findViewById(R.id.voiceButton);

@@ -49,4 +49,9 @@ public class BeverageServiceImpl implements BeverageService{
     public Beverage findOne(Long beverageId) {
         return beverageRepository.findOne(beverageId);
     }
+
+    @Override
+    public List<Beverage> findBeveragesByName(String name) {
+        return beverageRepository.findByName(name);
+    }
 }
