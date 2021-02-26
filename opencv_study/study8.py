@@ -72,7 +72,7 @@ while True:
     
     new_inp_img = cv2.addWeighted(mask, 0.3, new_inp_img, 0.7, 0)
     cv2.putText(mask, "'n' - clear", (10,50), 
-                cv2.FONT_HERSHEY_PLAIN, 1.5, (255,255,255),1.5)
+                cv2.FONT_HERSHEY_PLAIN, 1.5, (255,255,255),2)
     img_k = Image.fromarray(cv2.cvtColor(mask, cv2.COLOR_BGR2RGB))
     draw = ImageDraw.Draw(img_k)
     
