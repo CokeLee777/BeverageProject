@@ -15,4 +15,6 @@ public interface BeverageLocationService {
     List<BeverageLocation> findBeverageLocations();
     //음료 위치 한개 조회
     BeverageLocation findOne(Long row);
+    //음료 이름으로 위치 조회
+    String findByName(String name);
 }

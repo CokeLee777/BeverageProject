@@ -25,11 +25,13 @@ public class AndroidController {
         String param1 = httpServletRequest.getParameter("param1");
 
         List<Beverage> findBeverages = beverageService.findBeveragesByName(param1);
+        String findLocation = beverageLocationService.findByName(param1);
 
         //DB에서 찾은 음료가 있으면
         if(!findBeverages.isEmpty()){
             for(Beverage findbeverage: findBeverages){
                 result = findbeverage.toString();
+                result += " 위치는 " + findLocation + "에 위치합니다.";
             }
         } else {
             result = "찾으시는 음료가 없습니다.";

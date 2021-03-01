@@ -38,4 +38,30 @@ public class BeverageLocationRepositoryImpl implements BeverageLocationRepositor
                 .getResultList();
     }
 
+    @Override
+    public String findByName(String name) {
+        List<BeverageLocation> findBeverageLocation = em.createQuery("select bl from BeverageLocation bl", BeverageLocation.class)
+                .getResultList();
+        String result = null;
+        for (BeverageLocation beverageLocation : findBeverageLocation) {
+            Long id = beverageLocation.getId();
+            if(beverageLocation.getC1().equals(name)){
+                result = id + "행 " + 1 + "열";
+                break;
+            } else if(beverageLocation.getC2().equals(name)) {
+                result = id + "행 " + 2 + "열";
+                break;
+            } else if(beverageLocation.getC3().equals(name)){
+                result = id + "행 " + 3 + "열";
+                break;
+            } else if(beverageLocation.getC4().equals(name)){
+                result = id + "행 " + 4 + "열";
+                break;
+            } else {
+                result = null;
+            }
+        }
+        return result;
+    }
+
 }

@@ -10,4 +10,5 @@ public interface BeverageLocationRepository {
     void delete(BeverageLocation beverageLocation);
     BeverageLocation findOne(Long id);
     List<BeverageLocation> findAll();
+    String findByName(String name);
 }
