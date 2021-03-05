@@ -131,19 +131,19 @@ while(True):
                     
                 elif centerX >400:
                     if 200 >centerY >100:
-                        cv.putText(img_color,'BP : WJ', (10, 80), cv.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0), 1, lineType=cv.LINE_AA)
+                        cv.putText(img_color,'BP : Fanta', (10, 80), cv.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0), 1, lineType=cv.LINE_AA)
                     elif 300>centerY >200:
-                        cv.putText(img_color,'BP : CM' , (10, 80), cv.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0), 1, lineType=cv.LINE_AA)
+                        cv.putText(img_color,'BP : Power Aid' , (10, 80), cv.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0), 1, lineType=cv.LINE_AA)
                     else:
-                        cv.putText(img_color,'BP : YJ' , (10, 80), cv.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0), 1, lineType=cv.LINE_AA)
+                        cv.putText(img_color,'BP : Gatorade' , (10, 80), cv.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0), 1, lineType=cv.LINE_AA)
                     
                 else:
                     if 200 >centerY >100:
-                        cv.putText(img_color,'BP : SAMSUNG', (10, 80), cv.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0), 1, lineType=cv.LINE_AA)
+                        cv.putText(img_color,'BP : Virak Sikhye', (10, 80), cv.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0), 1, lineType=cv.LINE_AA)
                     elif 300 >centerY >200:
-                        cv.putText(img_color,'BP : APPLE' , (10, 80), cv.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0), 1, lineType=cv.LINE_AA)
+                        cv.putText(img_color,'BP : HELLO' , (10, 80), cv.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0), 1, lineType=cv.LINE_AA)
                     else:
-                        cv.putText(img_color,'BP : LG' , (10, 80), cv.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0), 1, lineType=cv.LINE_AA)
+                        cv.putText(img_color,'BP : WORLD' , (10, 80), cv.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0), 1, lineType=cv.LINE_AA)
                     
                 cv.circle(img_color, (centerX, centerY), 10, (0,0,255), 10)
                 cv.rectangle(img_color, (x,y), (x+width,y+height), (0,0,255))
