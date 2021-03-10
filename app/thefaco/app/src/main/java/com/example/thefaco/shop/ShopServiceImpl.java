@@ -25,23 +25,13 @@ public class ShopServiceImpl extends MainActivity implements ShopService{
     }
 
     @Override
-    public void voiceGuidance2(TextToSpeech tts, String name, String location) {
-        if(name == null){
-            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
-                //QUEUE_FLUSH: Queue 값을 초기화한 후 값을 넣는다.
-                tts.speak("찾으시는 음료가 없습니다.", TextToSpeech.QUEUE_FLUSH, null, null);
-            } else {
-                tts.speak("찾으시는 음료가 없습니다.", TextToSpeech.QUEUE_FLUSH, null);
-            }
+    public void voiceGuidance2(TextToSpeech tts, String result) {
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
+            //QUEUE_FLUSH: Queue 값을 초기화한 후 값을 넣는다.
+            tts.speak(result, TextToSpeech.QUEUE_FLUSH, null, null);
         } else {
-            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
-                //QUEUE_FLUSH: Queue 값을 초기화한 후 값을 넣는다.
-                tts.speak(name + " 는 " + location + " 에 위치합니다.", TextToSpeech.QUEUE_FLUSH, null, null);
-            } else {
-                tts.speak(name + " 는 " + location + " 에 위치합니다.", TextToSpeech.QUEUE_FLUSH, null);
-            }
+            tts.speak(result, TextToSpeech.QUEUE_FLUSH, null);
         }
-
     }
 
 

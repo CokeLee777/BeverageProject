@@ -29,7 +29,7 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity{
     //컨트롤러
     private static final AppConfig appConfig = new AppConfig();
     //고객 서비스, 음성 서비스, 저장소 변수
@@ -43,6 +43,9 @@ public class MainActivity extends AppCompatActivity {
     private Intent intent;
     //음성인식 결과를 담을 변수
     private String result = new String();
+    //DB에 담을 변수
+    private String httpResponse = new String();
+    private String param = new String();
     //퍼미션 체크를 위한 변수
     private final int PERMISSION = 1;
     TextView st;
@@ -54,52 +57,8 @@ public class MainActivity extends AppCompatActivity {
 
         st = findViewById(R.id.Text_say);
 
-        //================================= Server 통신 ============================================//
-
-//        RequestQueue queue = Volley.newRequestQueue(this);
-//        String url = "http://192.168.219.101:8080/findBeverageInfo";
-//
-//        //음료 정보 요청
-//        StringRequest request = new StringRequest(Request.Method.POST, url,
-//                //요청 성공 시
-//                new Response.Listener<String>() {
-//                    @Override
-//                    public void onResponse(String response) {
-//                        Log.d("result", response);
-//                    }
-//                },
-//                // 에러 발생 시
-//                new Response.ErrorListener() {
-//                    @Override
-//                    public void onErrorResponse(VolleyError error) {
-//                        Log.d("error", "[" + error.getMessage() + "]");
-//                    }
-//                }) {
-//            //요청보낼 때 추가로 파라미터가 필요할 경우
-//            //url?a=xxx 이런식으로 보내는 대신에 아래처럼 가능.
-//            @Override
-//            protected Map<String, String> getParams() throws AuthFailureError {
-//                Map<String, String> params = new HashMap<>();
-//                params.put("param1", "사이다");
-//                return  params;
-//            }
-//        };
-//
-//        queue.add(request);
-
-        //================================= Server 통신 ============================================//
-
         //음성 버튼
         ImageButton voiceButton = findViewById(R.id.voiceButton);
-
-        //DB 생성 전 테스트용 객체생성
-        Beverage testBeverage = new Beverage("1-1", "콜라", BottleType.CAN);
-        Beverage testBeverage2 = new Beverage("1-2", "환타", BottleType.CAN);
-        Beverage testBeverage3 = new Beverage("1-3", "사이다", BottleType.CAN);
-        //테스트용 객체 저장소에 넣기
-        clientService.join(testBeverage);
-        clientService.join(testBeverage2);
-        clientService.join(testBeverage3);
 
         //TTS 환경설정
         checkTTS();
@@ -116,16 +75,15 @@ public class MainActivity extends AppCompatActivity {
                 }
             },2000);
             // 2초 딜레이 첨부
-
         });
-
     }
 
     public void httpConn(String beverageName){
         //================================= Server 통신 ============================================//
 
         RequestQueue queue = Volley.newRequestQueue(this);
-        String url = "http://192.168.219.101:8080/findBeverageInfo";
+
+        String url = "http://172.16.100.187:8080/findBeverageInfo";
 
         //음료 정보 요청
         StringRequest request = new StringRequest(Request.Method.POST, url,
@@ -133,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        result = response;
+                        startTTS(response);
                         Log.d("result", response);
                     }
                 },
@@ -212,40 +170,27 @@ public class MainActivity extends AppCompatActivity {
 
             TextView tv = findViewById(R.id.Text_say);
 
-            httpConn(str);
 
-            if(result == null){
-                tv.setText(result);
-                tts_restart(null, null);
-            } else {
-                tts_restart(null, result);
-                tv.setText(result);
-            }
+            Thread httpThread = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    httpConn(str);
+                    //tts_restart(httpResponse);
+                }
+            });
+            httpThread.start();
 
-//            Beverage findBeverage = clientService.findBeverage(str);
-//            String findLocation = findBeverage.getLocation();
-
-//            if(findBeverage == null){
-//                String a = "찾으시는 음료가 없습니다.";
-//                tv.setText(a);
-//                tts_restart(null, null);
-//            } else {
-//
-//                String a = findLocation + "\n<" + str + ">";
-//                tts_restart(str, findLocation);
-//                tv.setText(a);
-//            }
         }
     }
 
-    private void tts_restart(String name, String location){
+    private void startTTS(String result){
         //음료 위치 tts 안내
         tts2 = new TextToSpeech(this, status -> {
             if(status == TextToSpeech.SUCCESS) {
                 //언어 선택
                 tts2.setLanguage(Locale.KOREAN);
                 //tts2.speak(s, TextToSpeech.QUEUE_FLUSH, null);
-                shopService.voiceGuidance2(tts2, name, location);
+                shopService.voiceGuidance2(tts2, result);
             }
         });
     }
