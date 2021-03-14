@@ -16,7 +16,7 @@ class BeverageLocationRepositoryImplTest {
     @Autowired BeverageLocationRepository beverageLocationRepository;
 
     @Test
-    public void findByNameJPQL테스트() throws Exception {
+    public void findByNameJPQL() throws Exception {
         //given
         String beverage = "콜라";
         //when
