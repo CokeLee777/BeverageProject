@@ -11,6 +11,8 @@ import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
 import android.speech.tts.TextToSpeech;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,6 +23,7 @@ import androidx.core.content.ContextCompat;
 import com.android.volley.*;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.thefaco.adapters.RecognitionListenerAdapter;
 import com.example.thefaco.client.ClientService;
 import com.example.thefaco.shop.*;
 
@@ -50,15 +53,73 @@ public class MainActivity extends AppCompatActivity{
     private final int PERMISSION = 1;
     TextView st;
 
+
+    /*테스트*/
+    private SpeechRecognizer speechRecognizer;
+    private static final int REQUEST_RECORD_AUDIO_PERMISSION_CODE = 1;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        st = findViewById(R.id.Text_say);
+
+        int[] colors = {
+                ContextCompat.getColor(this, R.color.color1),
+                ContextCompat.getColor(this, R.color.color2),
+                ContextCompat.getColor(this, R.color.color3),
+                ContextCompat.getColor(this, R.color.color4),
+                ContextCompat.getColor(this, R.color.color5)
+        };
+
+        int[] heights = { 10, 24, 18, 23, 16 };
+
+        speechRecognizer = SpeechRecognizer.createSpeechRecognizer(this);
+
+
+        final RecognitionProgressView recognitionProgressView = (RecognitionProgressView) findViewById(R.id.recognition_view);
+        recognitionProgressView.setSpeechRecognizer(speechRecognizer);
+        recognitionProgressView.setRecognitionListener(new RecognitionListenerAdapter() {
+            @Override
+            public void onResults(Bundle results) {
+                showResults(results);
+            }
+        });
+        recognitionProgressView.setColors(colors);
+        recognitionProgressView.setBarMaxHeightsInDp(heights);
+        recognitionProgressView.setCircleRadiusInDp(8);
+        recognitionProgressView.setSpacingInDp(8);
+        recognitionProgressView.setIdleStateAmplitudeInDp(8);
+        recognitionProgressView.setRotationRadiusInDp(25);
+        recognitionProgressView.play();
+
+
+        /*listen.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (ContextCompat.checkSelfPermission(MainActivity.this,
+                        Manifest.permission.RECORD_AUDIO)
+                        != PackageManager.PERMISSION_GRANTED) {
+                    requestPermission();
+                } else {
+                    startRecognition();
+                    recognitionProgressView.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            startRecognition();
+                        }
+                    }, 50);
+                }
+            }
+        });
+        */
+
+        //st = findViewById(R.id.Text_say);
 
         //음성 버튼
         ImageButton voiceButton = findViewById(R.id.voiceButton);
+        Button listen = (Button) findViewById(R.id.listen);
 
         //TTS 환경설정
         checkTTS();
@@ -77,6 +138,61 @@ public class MainActivity extends AppCompatActivity{
             // 2초 딜레이 첨부
         });
     }
+
+    private void startRecognition() {
+        Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+        intent.putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE, getPackageName());
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, "en");
+        speechRecognizer.startListening(intent);
+    }
+
+    /*@Override
+    protected void onDestroy() {
+        if (speechRecognizer != null) {
+            speechRecognizer.destroy();
+        }
+        super.onDestroy();
+    }*/
+
+    private void showResults(Bundle results) {
+        ArrayList<String> matches = results
+                .getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
+        Toast.makeText(this, matches.get(0), Toast.LENGTH_LONG).show();
+    }
+    private void requestPermission() {
+        if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                Manifest.permission.RECORD_AUDIO)) {
+            Toast.makeText(this, "Requires RECORD_AUDIO permission", Toast.LENGTH_SHORT).show();
+        } else {
+            ActivityCompat.requestPermissions(this,
+                    new String[] { Manifest.permission.RECORD_AUDIO },
+                    REQUEST_RECORD_AUDIO_PERMISSION_CODE);
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     public void httpConn(String beverageName){
         //================================= Server 통신 ============================================//
@@ -168,7 +284,7 @@ public class MainActivity extends AppCompatActivity{
             String str = results.get(0);
             Toast.makeText(getBaseContext(), str, Toast.LENGTH_SHORT).show();
 
-            TextView tv = findViewById(R.id.Text_say);
+            //TextView tv = findViewById(R.id.Text_say);
 
 
             Thread httpThread = new Thread(new Runnable() {
@@ -304,6 +420,9 @@ public class MainActivity extends AppCompatActivity{
         });
 
     }
+
+
+
 
     // 앱 종료시
     @Override
