@@ -64,7 +64,6 @@ public class MainActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
         int[] colors = {
                 ContextCompat.getColor(this, R.color.color1),
                 ContextCompat.getColor(this, R.color.color2),
@@ -166,40 +165,17 @@ public class MainActivity extends AppCompatActivity{
             Toast.makeText(this, "Requires RECORD_AUDIO permission", Toast.LENGTH_SHORT).show();
         } else {
             ActivityCompat.requestPermissions(this,
-                    new String[] { Manifest.permission.RECORD_AUDIO },
+                    new String[]{Manifest.permission.RECORD_AUDIO},
                     REQUEST_RECORD_AUDIO_PERMISSION_CODE);
         }
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     public void httpConn(String beverageName){
         //================================= Server 통신 ============================================//
 
         RequestQueue queue = Volley.newRequestQueue(this);
 
-        String url = "http://172.16.100.187:8080/findBeverageInfo";
+        String url = "http://15.165.63.211:3333//findBeverageInfo";
 
         //음료 정보 요청
         StringRequest request = new StringRequest(Request.Method.POST, url,
@@ -420,9 +396,6 @@ public class MainActivity extends AppCompatActivity{
         });
 
     }
-
-
-
 
     // 앱 종료시
     @Override
