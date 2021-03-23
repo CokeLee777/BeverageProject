@@ -5,27 +5,33 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.Handler;
 import android.speech.RecognitionListener;
 import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
 import android.speech.tts.TextToSpeech;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
-import android.os.Bundle;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-import com.android.volley.*;
+
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.thefaco.adapters.RecognitionListenerAdapter;
 import com.example.thefaco.client.ClientService;
-import com.example.thefaco.shop.*;
+import com.example.thefaco.shop.ShopRepository;
+import com.example.thefaco.shop.ShopService;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -77,7 +83,7 @@ public class MainActivity extends AppCompatActivity{
         speechRecognizer = SpeechRecognizer.createSpeechRecognizer(this);
 
 
-        final RecognitionProgressView recognitionProgressView = (RecognitionProgressView) findViewById(R.id.recognition_view);
+        final RecognitionProgressView recognitionProgressView = (RecognitionProgressView) findViewById(R.id.fivecolor_view);
         recognitionProgressView.setSpeechRecognizer(speechRecognizer);
         recognitionProgressView.setRecognitionListener(new RecognitionListenerAdapter() {
             @Override
@@ -114,7 +120,6 @@ public class MainActivity extends AppCompatActivity{
         });
         */
 
-        //st = findViewById(R.id.Text_say);
 
         //음성 버튼
         ImageButton voiceButton = findViewById(R.id.voiceButton);
@@ -124,7 +129,8 @@ public class MainActivity extends AppCompatActivity{
         checkTTS();
 
         //버튼 클릭시 음성 안내 서비스 호출
-        voiceButton.setOnClickListener(view -> {
+        //원래 voiceButton임 0323
+        recognitionProgressView.setOnClickListener(view -> {
             //음성안내 시작
             shopService.voiceGuidance(tts);
             new Handler().postDelayed(new Runnable() {
@@ -145,14 +151,6 @@ public class MainActivity extends AppCompatActivity{
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, "en");
         speechRecognizer.startListening(intent);
     }
-
-    /*@Override
-    protected void onDestroy() {
-        if (speechRecognizer != null) {
-            speechRecognizer.destroy();
-        }
-        super.onDestroy();
-    }*/
 
     private void showResults(Bundle results) {
         ArrayList<String> matches = results
@@ -281,7 +279,6 @@ public class MainActivity extends AppCompatActivity{
             if(status == TextToSpeech.SUCCESS) {
                 //언어 선택
                 tts2.setLanguage(Locale.KOREAN);
-                //tts2.speak(s, TextToSpeech.QUEUE_FLUSH, null);
                 shopService.voiceGuidance2(tts2, result);
             }
         });
