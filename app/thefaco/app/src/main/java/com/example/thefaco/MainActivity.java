@@ -173,7 +173,7 @@ public class MainActivity extends AppCompatActivity{
 
         RequestQueue queue = Volley.newRequestQueue(this);
 
-        String url = "http://15.165.63.211:3333//findBeverageInfo";
+        String url = "http://15.165.63.211:3333/findBeverageInfo";
 
         //음료 정보 요청
         StringRequest request = new StringRequest(Request.Method.POST, url,
@@ -254,6 +254,7 @@ public class MainActivity extends AppCompatActivity{
 
             ArrayList<String> results = data
                     .getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+
             //말한 음료 값
             String str = results.get(0);
             Toast.makeText(getBaseContext(), str, Toast.LENGTH_SHORT).show();
