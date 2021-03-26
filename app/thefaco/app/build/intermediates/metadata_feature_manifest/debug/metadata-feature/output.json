@@ -1,6 +1,10 @@
 {
   "version": 1,
+<<<<<<< Updated upstream
   "applicationId": "com.example.thefaco",
+=======
+  "applicationId": "com.example.BeYerage",
+>>>>>>> Stashed changes
   "variantType": "BASE_APK",
   "elements": [
     {

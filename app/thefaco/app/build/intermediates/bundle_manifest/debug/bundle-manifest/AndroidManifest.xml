@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+<<<<<<< Updated upstream
     package="com.example.thefaco"
+=======
+    package="com.example.BeYerage"
+>>>>>>> Stashed changes
     android:versionCode="1"
     android:versionName="1.0" >
 
@@ -15,7 +19,11 @@
         android:allowBackup="true"
         android:appComponentFactory="androidx.core.app.CoreComponentFactory"
         android:debuggable="true"
+<<<<<<< Updated upstream
         android:icon="@mipmap/ic_launcher"
+=======
+        android:icon="@mipmap/ic_launcher_foreground"
+>>>>>>> Stashed changes
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
