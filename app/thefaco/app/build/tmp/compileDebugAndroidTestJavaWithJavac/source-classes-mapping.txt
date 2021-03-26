@@ -1,0 +1,6 @@
+com/example/thefaco/ExampleInstrumentedTest.java
+ com.example.thefaco.ExampleInstrumentedTest
+com/example/thefaco/test/BuildConfig.java
+ com.example.thefaco.test.BuildConfig
+com/example/thefaco/MainActivityTest.java
+ com.example.thefaco.MainActivityTest

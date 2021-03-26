@@ -1,0 +1,50 @@
+com/example/thefaco/shop/BottleType.java
+ com.example.thefaco.shop.BottleType
+com/example/thefaco/animators/IdleAnimator.java
+ com.example.thefaco.animators.IdleAnimator
+com/example/thefaco/shop/ShopRepository.java
+ com.example.thefaco.shop.ShopRepository
+com/example/thefaco/shop/MemoryShopRepository.java
+ com.example.thefaco.shop.MemoryShopRepository
+com/example/thefaco/RecognitionBar.java
+ com.example.thefaco.RecognitionBar
+com/example/thefaco/animators/RotatingAnimator.java
+ com.example.thefaco.animators.RotatingAnimator
+com/example/thefaco/adapters/RecognitionListenerAdapter.java
+ com.example.thefaco.adapters.RecognitionListenerAdapter
+com/example/thefaco/animators/BarParamsAnimator.java
+ com.example.thefaco.animators.BarParamsAnimator
+com/example/thefaco/animators/RmsAnimator.java
+ com.example.thefaco.animators.RmsAnimator
+com/example/thefaco/BuildConfig.java
+ com.example.thefaco.BuildConfig
+com/example/thefaco/AppConfig.java
+ com.example.thefaco.AppConfig
+com/example/thefaco/client/ClientService.java
+ com.example.thefaco.client.ClientService
+com/example/thefaco/client/ClientServiceImpl.java
+ com.example.thefaco.client.ClientServiceImpl
+com/example/thefaco/shop/Beverage.java
+ com.example.thefaco.shop.Beverage
+com/example/thefaco/animators/TransformAnimator.java
+ com.example.thefaco.animators.TransformAnimator
+ com.example.thefaco.animators.TransformAnimator$OnInterpolationFinishedListener
+com/example/thefaco/shop/ShopService.java
+ com.example.thefaco.shop.ShopService
+com/example/thefaco/animators/BarRmsAnimator.java
+ com.example.thefaco.animators.BarRmsAnimator
+com/example/thefaco/RecognitionProgressView.java
+ com.example.thefaco.RecognitionProgressView
+ com.example.thefaco.RecognitionProgressView$1
+com/example/thefaco/MainActivity.java
+ com.example.thefaco.MainActivity
+ com.example.thefaco.MainActivity$1
+ com.example.thefaco.MainActivity$2
+ com.example.thefaco.MainActivity$3
+ com.example.thefaco.MainActivity$4
+ com.example.thefaco.MainActivity$5
+ com.example.thefaco.MainActivity$6
+ com.example.thefaco.MainActivity$7
+ com.example.thefaco.MainActivity$VoiceTask
+com/example/thefaco/shop/ShopServiceImpl.java
+ com.example.thefaco.shop.ShopServiceImpl
