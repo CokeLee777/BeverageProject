@@ -1,4 +1,0 @@
-com/example/thefaco/ExampleUnitTest.java
- com.example.thefaco.ExampleUnitTest
-com/example/thefaco/object/SameObjectTest.java
- com.example.thefaco.object.SameObjectTest
