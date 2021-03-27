@@ -1,6 +1,10 @@
 {
   "version": 1,
+<<<<<<< Updated upstream
   "applicationId": "com.example.thefaco",
+=======
+  "applicationId": "com.example.BeYerage",
+>>>>>>> Stashed changes
   "variantType": "BASE_APK",
   "elements": [
     {
@@ -19,7 +23,11 @@
       },
       "path": "resources-debug.ap_",
       "properties": {
+<<<<<<< Updated upstream
         "packageId": "com.example.thefaco",
+=======
+        "packageId": "com.example.BeYerage",
+>>>>>>> Stashed changes
         "split": "",
         "minSdkVersion": "16"
       }

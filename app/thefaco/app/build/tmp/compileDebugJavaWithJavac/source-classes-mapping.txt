@@ -26,6 +26,7 @@ com/example/thefaco/client/ClientServiceImpl.java
  com.example.thefaco.client.ClientServiceImpl
 com/example/thefaco/shop/Beverage.java
  com.example.thefaco.shop.Beverage
+<<<<<<< Updated upstream
 com/example/thefaco/animators/TransformAnimator.java
  com.example.thefaco.animators.TransformAnimator
  com.example.thefaco.animators.TransformAnimator$OnInterpolationFinishedListener
@@ -36,6 +37,8 @@ com/example/thefaco/animators/BarRmsAnimator.java
 com/example/thefaco/RecognitionProgressView.java
  com.example.thefaco.RecognitionProgressView
  com.example.thefaco.RecognitionProgressView$1
+=======
+>>>>>>> Stashed changes
 com/example/thefaco/MainActivity.java
  com.example.thefaco.MainActivity
  com.example.thefaco.MainActivity$1
@@ -48,3 +51,16 @@ com/example/thefaco/MainActivity.java
  com.example.thefaco.MainActivity$VoiceTask
 com/example/thefaco/shop/ShopServiceImpl.java
  com.example.thefaco.shop.ShopServiceImpl
+<<<<<<< Updated upstream
+=======
+com/example/thefaco/animators/BarRmsAnimator.java
+ com.example.thefaco.animators.BarRmsAnimator
+com/example/thefaco/RecognitionProgressView.java
+ com.example.thefaco.RecognitionProgressView
+ com.example.thefaco.RecognitionProgressView$1
+com/example/thefaco/shop/ShopService.java
+ com.example.thefaco.shop.ShopService
+com/example/thefaco/animators/TransformAnimator.java
+ com.example.thefaco.animators.TransformAnimator
+ com.example.thefaco.animators.TransformAnimator$OnInterpolationFinishedListener
+>>>>>>> Stashed changes

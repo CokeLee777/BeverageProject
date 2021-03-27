@@ -328,6 +328,10 @@
     <color name="foreground_material_light">@android:color/black</color>
     <color name="highlighted_text_material_dark">#6680cbc4</color>
     <color name="highlighted_text_material_light">#66009688</color>
+<<<<<<< Updated upstream
+=======
+    <color name="ic_launcher_background">#FFFFFF</color>
+>>>>>>> Stashed changes
     <color name="material_blue_grey_800">#ff37474f</color>
     <color name="material_blue_grey_900">#ff263238</color>
     <color name="material_blue_grey_950">#ff21272b</color>
@@ -569,7 +573,11 @@
     <string name="abc_shareactionprovider_share_with">Share with</string>
     <string name="abc_shareactionprovider_share_with_application">Share with <ns1:g example="Mail" id="application_name">%s</ns1:g></string>
     <string name="abc_toolbar_collapse_description">Collapse</string>
+<<<<<<< Updated upstream
     <string name="app_name">thefaco</string>
+=======
+    <string name="app_name">BeYerage</string>
+>>>>>>> Stashed changes
     <string name="check">찾으시는 음료가 없습니다.</string>
     <string name="search_menu_title">Search</string>
     <string name="status_bar_notification_info_overflow">999+</string>

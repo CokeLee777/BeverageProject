@@ -4,7 +4,11 @@
     "type": "APK",
     "kind": "Directory"
   },
+<<<<<<< Updated upstream
   "applicationId": "com.example.thefaco",
+=======
+  "applicationId": "com.example.BeYerage",
+>>>>>>> Stashed changes
   "variantName": "debug",
   "elements": [
     {

@@ -6,6 +6,10 @@
     <CLASSES>
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/f267d59e4ed38ce9fc4c08491032210d/appcompat-1.2.0/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/f267d59e4ed38ce9fc4c08491032210d/appcompat-1.2.0/res" />
+<<<<<<< Updated upstream
+=======
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/f267d59e4ed38ce9fc4c08491032210d/appcompat-1.2.0/AndroidManifest.xml" />
+>>>>>>> Stashed changes
     </CLASSES>
     <JAVADOC />
     <SOURCES>

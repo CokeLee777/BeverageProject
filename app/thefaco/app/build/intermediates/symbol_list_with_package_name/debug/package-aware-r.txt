@@ -1,4 +1,8 @@
+<<<<<<< Updated upstream
 com.example.thefaco
+=======
+com.example.BeYerage
+>>>>>>> Stashed changes
 anim abc_fade_in
 anim abc_fade_out
 anim abc_grow_fade_in_from_bottom
@@ -549,6 +553,10 @@ color foreground_material_dark
 color foreground_material_light
 color highlighted_text_material_dark
 color highlighted_text_material_light
+<<<<<<< Updated upstream
+=======
+color ic_launcher_background
+>>>>>>> Stashed changes
 color material_blue_grey_800
 color material_blue_grey_900
 color material_blue_grey_950
@@ -933,6 +941,10 @@ id edit_query
 id end
 id expand_activities_button
 id expanded_menu
+<<<<<<< Updated upstream
+=======
+id fivecolor_view
+>>>>>>> Stashed changes
 id flip
 id forever
 id gone
@@ -988,7 +1000,10 @@ id progress_circular
 id progress_horizontal
 id radio
 id ratio
+<<<<<<< Updated upstream
 id recognition_view
+=======
+>>>>>>> Stashed changes
 id rectangles
 id reverseSawtooth
 id right
@@ -1118,6 +1133,10 @@ layout select_dialog_multichoice_material
 layout select_dialog_singlechoice_material
 layout support_simple_spinner_dropdown_item
 mipmap ic_launcher
+<<<<<<< Updated upstream
+=======
+mipmap ic_launcher_foreground
+>>>>>>> Stashed changes
 mipmap ic_launcher_round
 string abc_action_bar_home_description
 string abc_action_bar_up_description

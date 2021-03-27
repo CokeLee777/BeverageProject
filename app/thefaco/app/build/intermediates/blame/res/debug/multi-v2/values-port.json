@@ -1,10 +1,17 @@
 {
     "logs": [
         {
+<<<<<<< Updated upstream
             "outputFile": "C:\\Users\\82105\\OneDrive\\Desktop\\BeverageProject\\app\\thefaco\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-port\\values-port.xml",
             "map": [
                 {
                     "source": "C:\\Users\\82105\\.gradle\\caches\\transforms-2\\files-2.1\\f267d59e4ed38ce9fc4c08491032210d\\appcompat-1.2.0\\res\\values-port\\values-port.xml",
+=======
+            "outputFile": "C:\\Users\\Woojin\\Desktop\\BeverageProject\\app\\thefaco\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-port\\values-port.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\Woojin\\.gradle\\caches\\transforms-2\\files-2.1\\f267d59e4ed38ce9fc4c08491032210d\\appcompat-1.2.0\\res\\values-port\\values-port.xml",
+>>>>>>> Stashed changes
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
