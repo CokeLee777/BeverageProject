@@ -12,6 +12,7 @@ import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
 import android.speech.tts.TextToSpeech;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -33,7 +34,6 @@ import com.example.BeYerage.adapters.RecognitionListenerAdapter;
 import com.example.BeYerage.client.ClientService;
 import com.example.BeYerage.shop.ShopRepository;
 import com.example.BeYerage.shop.ShopService;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Locale;
@@ -61,8 +61,9 @@ public class MainActivity extends AppCompatActivity{
     TextView st;
 
 
-    /*테스트*/
+    //애니메이션을 위한 선언
     private SpeechRecognizer speechRecognizer;
+    //음성 허용 확인
     private static final int REQUEST_RECORD_AUDIO_PERMISSION_CODE = 1;
 
 
@@ -71,6 +72,8 @@ public class MainActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+        /* 애니메이션 만들기 */
         int[] colors = {
                 ContextCompat.getColor(this, R.color.color1),
                 ContextCompat.getColor(this, R.color.color2),
@@ -94,10 +97,10 @@ public class MainActivity extends AppCompatActivity{
         });
         recognitionProgressView.setColors(colors);
         recognitionProgressView.setBarMaxHeightsInDp(heights);
-        recognitionProgressView.setCircleRadiusInDp(8);
-        recognitionProgressView.setSpacingInDp(8);
-        recognitionProgressView.setIdleStateAmplitudeInDp(8);
-        recognitionProgressView.setRotationRadiusInDp(25);
+        recognitionProgressView.setCircleRadiusInDp(8); // 반지름
+        recognitionProgressView.setSpacingInDp(8); // 간격
+        recognitionProgressView.setIdleStateAmplitudeInDp(8); //아무것도 안할 때
+        recognitionProgressView.setRotationRadiusInDp(25); // O 모양 회전할 때 반지름
         recognitionProgressView.play();
 
 
@@ -120,6 +123,10 @@ public class MainActivity extends AppCompatActivity{
             }
         });
         */
+
+
+
+        /* TTS, STT */
 
 
         //음성 버튼
@@ -145,6 +152,17 @@ public class MainActivity extends AppCompatActivity{
         });
     }
 
+
+    /* 팝업창 */
+    //버튼
+    public void mOnPopupClick(){
+        //데이터 담아서 팝업(액티비티) 호출
+        Intent intent = new Intent(this, PopUpActivity.class);
+        intent.putExtra("data", result);
+        startActivityForResult(intent, 1);
+    }
+
+
     private void startRecognition() {
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         intent.putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE, getPackageName());
@@ -154,10 +172,10 @@ public class MainActivity extends AppCompatActivity{
     }
 
     private void showResults(Bundle results) {
-        ArrayList<String> matches = results
-                .getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
+        ArrayList<String> matches = results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
         Toast.makeText(this, matches.get(0), Toast.LENGTH_LONG).show();
     }
+
     private void requestPermission() {
         if (ActivityCompat.shouldShowRequestPermissionRationale(this,
                 Manifest.permission.RECORD_AUDIO)) {
@@ -208,7 +226,8 @@ public class MainActivity extends AppCompatActivity{
         //================================= Server 통신 ============================================//
     }
 
-    public class VoiceTask extends AsyncTask<String, Integer, String> {
+    public class VoiceTask extends AsyncTask<String, Integer, String>{
+        //AsyncTask < 보낼 내용이 string, 진행상황 업데이트할 때 integer로 전달, AsyncTask가 끝난 뒤 결과값은 String >
         String str = null;
 
         @Override
@@ -260,9 +279,6 @@ public class MainActivity extends AppCompatActivity{
             String str = results.get(0);
             Toast.makeText(getBaseContext(), str, Toast.LENGTH_SHORT).show();
 
-            //TextView tv = findViewById(R.id.Text_say);
-
-
             Thread httpThread = new Thread(new Runnable() {
                 @Override
                 public void run() {
@@ -282,6 +298,7 @@ public class MainActivity extends AppCompatActivity{
                 //언어 선택
                 tts2.setLanguage(Locale.KOREAN);
                 shopService.voiceGuidance2(tts2, result);
+                mOnPopupClick();
             }
         });
     }

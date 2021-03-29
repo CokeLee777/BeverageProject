@@ -13,13 +13,22 @@
             android:supportsRtl="true"
             android:usesCleartextTraffic="true"
             android:theme="@style/AppTheme">
+
+        <activity android:name=".SplashActivity"
+            android:theme="@style/SplashTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
         <activity android:name="com.example.BeYerage.MainActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
                 <action android:name="android.intent.action.TTS_SERVICE" />
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+        <activity android:name=".PopUpActivity" android:theme="@android:style/Theme.Dialog" />
     </application>
 
 </manifest>
