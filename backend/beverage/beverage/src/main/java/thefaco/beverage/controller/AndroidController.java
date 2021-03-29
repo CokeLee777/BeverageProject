@@ -2,8 +2,7 @@ package thefaco.beverage.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import thefaco.beverage.domain.Beverage;
 import thefaco.beverage.service.BeverageLocationService;
@@ -19,7 +18,7 @@ public class AndroidController {
     private final BeverageService beverageService;
     private final BeverageLocationService beverageLocationService;
 
-    @RequestMapping(method = RequestMethod.POST, value="/findBeverageInfo")
+    @PostMapping("/findBeverageInfo")
     public @ResponseBody String android(HttpServletRequest httpServletRequest) {
         String result = null;
         String param1 = httpServletRequest.getParameter("param1");
