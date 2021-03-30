@@ -1,6 +1,7 @@
 package com.example.BeYerage;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
@@ -58,7 +59,7 @@ public class MainActivity extends AppCompatActivity{
     private String param = new String();
     //퍼미션 체크를 위한 변수
     private final int PERMISSION = 1;
-    TextView st;
+
 
 
     //애니메이션을 위한 선언
@@ -154,13 +155,12 @@ public class MainActivity extends AppCompatActivity{
 
 
     /* 팝업창 */
-    //버튼
-//    public void mOnPopupClick(){
-//        //데이터 담아서 팝업(액티비티) 호출
-//        Intent intent = new Intent(this, PopUpActivity.class);
-//        intent.putExtra("data", result);
-//        startActivityForResult(intent, 1);
-//    }
+    public void mOnPopupClick(){
+        //데이터 담아서 팝업(액티비티) 호출
+        Intent intent = new Intent(this, PopUpActivity.class);
+        intent.putExtra("data", result);
+        startActivityForResult(intent, 1);
+    }
 
 
     private void startRecognition() {
@@ -299,6 +299,9 @@ public class MainActivity extends AppCompatActivity{
                 tts2.setLanguage(Locale.KOREAN);
                 shopService.voiceGuidance2(tts2, result);
                 //mOnPopupClick();
+
+                /* json 파싱 */
+                // ((jsonParse)jsonParse.mContext).parse();
             }
         });
     }
