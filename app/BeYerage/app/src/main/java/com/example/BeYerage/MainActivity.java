@@ -155,12 +155,12 @@ public class MainActivity extends AppCompatActivity{
 
     /* 팝업창 */
     //버튼
-    public void mOnPopupClick(){
-        //데이터 담아서 팝업(액티비티) 호출
-        Intent intent = new Intent(this, PopUpActivity.class);
-        intent.putExtra("data", result);
-        startActivityForResult(intent, 1);
-    }
+//    public void mOnPopupClick(){
+//        //데이터 담아서 팝업(액티비티) 호출
+//        Intent intent = new Intent(this, PopUpActivity.class);
+//        intent.putExtra("data", result);
+//        startActivityForResult(intent, 1);
+//    }
 
 
     private void startRecognition() {
@@ -298,7 +298,7 @@ public class MainActivity extends AppCompatActivity{
                 //언어 선택
                 tts2.setLanguage(Locale.KOREAN);
                 shopService.voiceGuidance2(tts2, result);
-                mOnPopupClick();
+                //mOnPopupClick();
             }
         });
     }
