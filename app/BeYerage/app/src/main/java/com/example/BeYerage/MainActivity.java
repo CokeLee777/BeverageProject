@@ -198,7 +198,7 @@ public class MainActivity extends AppCompatActivity{
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
-                params.put("param1", beverageName);
+                params.put("beverageName", beverageName);
                 return  params;
             }
         };
