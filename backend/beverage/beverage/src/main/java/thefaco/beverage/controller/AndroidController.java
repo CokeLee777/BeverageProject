@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,6 +23,7 @@ public class AndroidController {
 
     private final BeverageService beverageService;
     private final BeverageLocationService beverageLocationService;
+    private ObjectMapper objectMapper = new ObjectMapper();
 
     @ResponseBody
     @PostMapping("/findBeverageInfo")
@@ -47,19 +49,16 @@ public class AndroidController {
     }
 
     @ResponseBody
-    @PostMapping("/json-response")
+    @PostMapping(value = "/json-response", produces = MediaType.APPLICATION_JSON_VALUE)
     public String test(@RequestParam("beverageName") String beverageName) throws JsonProcessingException {
 
-        String result = null;
-        ObjectMapper objectMapper = new ObjectMapper();
+        String result = "";
 
         List<Beverage> findBeverages = beverageService.findBeveragesByName(beverageName);
 
         //DB에서 찾은 음료가 있으면
         if(!findBeverages.isEmpty()){
-            for(Beverage findbeverage: findBeverages){
-                result = objectMapper.writeValueAsString(findbeverage);
-            }
+            result = objectMapper.writeValueAsString(findBeverages);
         } else {
             result = "찾으시는 음료가 없습니다.";
         }
