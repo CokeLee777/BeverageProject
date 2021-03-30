@@ -1,5 +1,7 @@
 package thefaco.beverage.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -40,6 +42,27 @@ public class AndroidController {
         }
 
         log.info("android access={}", result);
+
+        return result;
+    }
+
+    @ResponseBody
+    @PostMapping("/json-response")
+    public String test(@RequestParam("beverageName") String beverageName) throws JsonProcessingException {
+
+        String result = null;
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        List<Beverage> findBeverages = beverageService.findBeveragesByName(beverageName);
+
+        //DB에서 찾은 음료가 있으면
+        if(!findBeverages.isEmpty()){
+            for(Beverage findbeverage: findBeverages){
+                result = objectMapper.writeValueAsString(findbeverage);
+            }
+        } else {
+            result = "찾으시는 음료가 없습니다.";
+        }
 
         return result;
     }

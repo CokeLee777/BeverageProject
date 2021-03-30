@@ -6,12 +6,6 @@ import com.example.BeYerage.MainActivity;
 
 public class ShopServiceImpl extends MainActivity implements ShopService{
 
-    private final ShopRepository shopRepository;
-
-    public ShopServiceImpl(ShopRepository shopRepository) {
-        this.shopRepository = shopRepository;
-    }
-
     @Override
     public void voiceGuidance(TextToSpeech tts) {
 

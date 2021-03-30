@@ -1,7 +1,6 @@
 package com.example.BeYerage;
 
 import android.Manifest;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
@@ -13,10 +12,8 @@ import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
 import android.speech.tts.TextToSpeech;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -28,13 +25,12 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.BeYerage.adapters.RecognitionListenerAdapter;
-import com.example.BeYerage.client.ClientService;
-import com.example.BeYerage.shop.ShopRepository;
 import com.example.BeYerage.shop.ShopService;
+import com.google.gson.JsonObject;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Locale;
@@ -43,10 +39,8 @@ import java.util.Map;
 public class MainActivity extends AppCompatActivity{
     //컨트롤러
     private static final AppConfig appConfig = new AppConfig();
-    //고객 서비스, 음성 서비스, 저장소 변수
-    private static final ClientService clientService = appConfig.clientService();
+    //음성 서비스
     private static final ShopService shopService = appConfig.shopService();
-    private static final ShopRepository shopRepository = appConfig.shopRepository();
     //TTS 변수 선언
     private TextToSpeech tts, tts2;
     //STT를 사용할 intent 와 SpeechRecognizer 초기화
