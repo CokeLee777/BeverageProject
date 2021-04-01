@@ -2,6 +2,7 @@ package thefaco.beverage.repository;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
+import thefaco.beverage.controller.BeverageLocationJsonForm;
 import thefaco.beverage.domain.BeverageLocation;
 
 import javax.persistence.EntityManager;
@@ -62,6 +63,39 @@ public class BeverageLocationRepositoryImpl implements BeverageLocationRepositor
             }
         }
         return result;
+    }
+
+    @Override
+    public BeverageLocationJsonForm findObjectByName(String name) {
+        List<BeverageLocation> findBeverageLocation = em.createQuery("select bl from BeverageLocation bl", BeverageLocation.class)
+                .getResultList();
+        BeverageLocationJsonForm beverageLocationJsonForm = new BeverageLocationJsonForm();
+        for (BeverageLocation beverageLocation : findBeverageLocation) {
+            Long id = beverageLocation.getId();
+            if(beverageLocation.getC1().equals(name)){
+                setRowAndColumn(name, beverageLocationJsonForm, id, 1);
+                break;
+            } else if(beverageLocation.getC2().equals(name)) {
+                setRowAndColumn(name, beverageLocationJsonForm, id, 2);
+                break;
+            } else if(beverageLocation.getC3().equals(name)){
+                setRowAndColumn(name, beverageLocationJsonForm, id, 3);
+                break;
+            } else if(beverageLocation.getC4().equals(name)){
+                setRowAndColumn(name, beverageLocationJsonForm, id, 4);
+                break;
+            } else {
+                return null;
+            }
+        }
+        return beverageLocationJsonForm;
+    }
+
+    private void setRowAndColumn(String name, BeverageLocationJsonForm beverageLocationJsonForm, Long id, int column) {
+        beverageLocationJsonForm.setId(id);
+        beverageLocationJsonForm.setName(name);
+        beverageLocationJsonForm.setRow(id);
+        beverageLocationJsonForm.setColumn(column);
     }
 
 }

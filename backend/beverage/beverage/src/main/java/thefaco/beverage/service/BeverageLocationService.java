@@ -1,5 +1,6 @@
 package thefaco.beverage.service;
 
+import thefaco.beverage.controller.BeverageLocationJsonForm;
 import thefaco.beverage.domain.BeverageLocation;
 
 import java.util.List;
@@ -17,4 +18,6 @@ public interface BeverageLocationService {
     BeverageLocation findOne(Long row);
     //음료 이름으로 위치 조회
     String findByName(String name);
+    //음료 이름으로 위치(객체) 조회
+    BeverageLocationJsonForm findObjectByName(String name);
 }

@@ -5,39 +5,43 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
-import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
+import thefaco.beverage.domain.Beverage;
 import thefaco.beverage.domain.BeverageLocation;
 import thefaco.beverage.service.BeverageLocationService;
 import thefaco.beverage.service.BeverageService;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.math.BigDecimal;
-import java.math.BigInteger;
+import java.io.OutputStream;
 import java.util.List;
 
-@Controller
+@RestController
 @RequiredArgsConstructor
 @Slf4j
 public class RaspberryPiController {
 
     private final BeverageLocationService beverageLocationService;
+    private final BeverageService beverageService;
     private ObjectMapper objectMapper = new ObjectMapper();
 
-    @ResponseBody
-    @PostMapping(value = "/raspberry-pi", produces = MediaType.APPLICATION_JSON_VALUE)
-    public String raspberryPi() throws JsonProcessingException {
-        String result = "";
+    @PostMapping(value = "/beverageInfoByJson/raspberry-pi", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<Beverage> beverageInfoByJson(Model model) throws JsonProcessingException {
+
+        List<Beverage> beverages = beverageService.findBeverages();
+        model.addAttribute("beverages", beverages);
+        log.info("beverageInfoByJson/raspberry-pi access={}", beverages);
+
+        return beverages;
+    }
+
+    @PostMapping(value = "/beverageLocationInfoByJson/raspberry-pi", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<BeverageLocation> beverageLocationInfoByJson() throws JsonProcessingException {
 
         List<BeverageLocation> beverageLocations = beverageLocationService.findBeverageLocations();
 
-        result = objectMapper.writeValueAsString(beverageLocations);
+        log.info("beverageLocationInfoByJson/raspberry-pi access={}", beverageLocations);
 
-        log.info("raspberry-pi access={}", result);
-
-        return result;
+        return beverageLocations;
     }
 }

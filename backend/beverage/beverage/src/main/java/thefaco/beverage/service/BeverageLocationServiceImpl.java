@@ -3,6 +3,7 @@ package thefaco.beverage.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import thefaco.beverage.controller.BeverageLocationJsonForm;
 import thefaco.beverage.domain.BeverageLocation;
 import thefaco.beverage.repository.BeverageLocationRepository;
 
@@ -51,5 +52,10 @@ public class BeverageLocationServiceImpl implements BeverageLocationService{
     @Override
     public String findByName(String name) {
         return beverageLocationRepository.findByName(name);
+    }
+
+    @Override
+    public BeverageLocationJsonForm findObjectByName(String name) {
+        return beverageLocationRepository.findObjectByName(name);
     }
 }

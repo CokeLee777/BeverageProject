@@ -5,18 +5,16 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 import thefaco.beverage.domain.Beverage;
 import thefaco.beverage.service.BeverageLocationService;
 import thefaco.beverage.service.BeverageService;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
-@Controller
+@RestController
 @RequiredArgsConstructor
 @Slf4j
 public class AndroidController {
@@ -25,9 +23,8 @@ public class AndroidController {
     private final BeverageLocationService beverageLocationService;
     private ObjectMapper objectMapper = new ObjectMapper();
 
-    @ResponseBody
-    @PostMapping("/findBeverageInfo")
-    public String android(@RequestParam("beverageName") String beverageName) {
+    @PostMapping("/beverageInfoByString/android")
+    public String beverageInfoByString(@RequestParam("beverageName") String beverageName) {
         String result = null;
 
         List<Beverage> findBeverages = beverageService.findBeveragesByName(beverageName);
@@ -48,22 +45,25 @@ public class AndroidController {
         return result;
     }
 
-    @ResponseBody
-    @PostMapping(value = "/json-response", produces = MediaType.APPLICATION_JSON_VALUE)
-    public String test(@RequestParam("beverageName") String beverageName) throws JsonProcessingException {
-
-        String result = "";
-
+    @PostMapping(value = "/beverageInfoByJson/android", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Beverage beverageInfoByJson(@RequestParam("beverageName") String beverageName) throws JsonProcessingException {
         List<Beverage> findBeverages = beverageService.findBeveragesByName(beverageName);
 
         //DB에서 찾은 음료가 있으면
         if(!findBeverages.isEmpty()){
-            result = objectMapper.writeValueAsString(findBeverages);
+            return findBeverages.get(0);
         } else {
-            result = "찾으시는 음료가 없습니다.";
+            return null;
         }
-
-        return result;
     }
+
+//    @PostMapping(value = "/beverageLocationInfoByJson/android", produces = MediaType.APPLICATION_JSON_VALUE)
+//    public BeverageLocationJsonForm beverageLocationInfoByJson(@RequestParam("beverageLocationName") String beverageLocationName) throws JsonProcessingException {
+//        BeverageLocationJsonForm beverageLocationJsonForm = beverageLocationService.findObjectByName(beverageLocationName);
+//
+//        //log.info("row={} column={}", beverageLocationJsonForm.getRow(), beverageLocationJsonForm.getColumn());
+//
+//        return beverageLocationJsonForm;
+//    }
 
 }

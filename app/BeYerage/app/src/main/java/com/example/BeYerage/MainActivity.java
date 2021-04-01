@@ -167,7 +167,7 @@ public class MainActivity extends AppCompatActivity{
 
         RequestQueue queue = Volley.newRequestQueue(this);
 
-        String url = "http://15.165.63.211:3333/findBeverageInfo";
+        String url = "http://15.165.63.211:3333/beverageInfoByString/android";
 
         //음료 정보 요청
         StringRequest request = new StringRequest(Request.Method.POST, url,
