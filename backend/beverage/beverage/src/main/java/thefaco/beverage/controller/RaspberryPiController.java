@@ -26,10 +26,9 @@ public class RaspberryPiController {
     private ObjectMapper objectMapper = new ObjectMapper();
 
     @PostMapping(value = "/beverageInfoByJson/raspberry-pi", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Beverage> beverageInfoByJson(Model model) throws JsonProcessingException {
-
+    public List<Beverage> beverageInfoByJson() throws JsonProcessingException {
         List<Beverage> beverages = beverageService.findBeverages();
-        model.addAttribute("beverages", beverages);
+
         log.info("beverageInfoByJson/raspberry-pi access={}", beverages);
 
         return beverages;
