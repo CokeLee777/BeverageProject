@@ -1,0 +1,45 @@
+.jumbotron {
+    border-bottom: 0;
+}
+
+.button1 {
+    display: inline-block;
+    width: 100px;
+    height: 100px;
+    padding: 5px;
+    border: 1px solid steelblue;
+    background-color: yellow;
+}
+/* 포커스 됐을 때 */
+.button1:focus{
+    outline: 0;
+}
+/* 마우스 오버 했을 때 */
+.button1:hover{
+    background-color:rgba(0, 79, 255, 0.9) ;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 79, 255, 0.6);
+}
+
+.button2 {
+    display: inline-block;
+    width: 100px;
+    height: 100px;
+    padding: 5px;
+    border: 1px solid steelblue;
+    background-color: salmon;
+    text-align: center;
+    vertical-align: middle;
+    border-radius: 0.4rem;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+/* 포커스 됐을 때 */
+.button2:focus{
+    outline: 0;
+}
+/* 마우스 오버 했을 때 */
+.button2:hover{
+    background-color:rgba(0, 79, 255, 0.9) ;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 79, 255, 0.6);
+}

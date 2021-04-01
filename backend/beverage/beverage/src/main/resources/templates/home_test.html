@@ -1,0 +1,37 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header">
+    <title>Hello</title>
+    <meta http-equiv="Content-Type" charset="UTF-8">
+    <link href="mystyle.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div class="container">
+    <div th:replace="fragments/bodyHeader :: bodyHeader" />
+
+    <div class="jumbotron">
+        <h1>편의점</h1>
+        <p class="lead">음료 상세정보</p>
+        <p>
+            <a class="button1" href="/beverages/new">음료 추가</a>
+            <a class="button1" href="/beverages">음료 목록</a>
+        </p>
+        <p class="lead">음료 위치정보</p>
+        <p>
+            <a class="button2" href="/beverageLocations/new">음료위치정보 추가</a>
+            <a class="button2" href="/beverageLocations">음료위치정보 목록</a>
+        </p>
+    </div>
+
+    <div th:replace="fragments/footer :: footer" />
+</div> <!-- /container -->
+
+<div class="container">
+
+
+
+</div> <!-- /container -->
+
+
+</body>
+</html>
