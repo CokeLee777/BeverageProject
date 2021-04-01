@@ -29,8 +29,6 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.BeYerage.adapters.RecognitionListenerAdapter;
 import com.example.BeYerage.shop.ShopService;
-import com.google.gson.JsonObject;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Locale;
