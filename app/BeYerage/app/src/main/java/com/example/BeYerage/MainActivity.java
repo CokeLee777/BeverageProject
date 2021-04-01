@@ -25,14 +25,20 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.HttpResponse;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.BeYerage.adapters.RecognitionListenerAdapter;
 import com.example.BeYerage.shop.ShopService;
+
+import java.io.IOException;
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionException;
 
 public class MainActivity extends AppCompatActivity{
     //컨트롤러
@@ -97,28 +103,6 @@ public class MainActivity extends AppCompatActivity{
         recognitionProgressView.play();
 
 
-        /*listen.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (ContextCompat.checkSelfPermission(MainActivity.this,
-                        Manifest.permission.RECORD_AUDIO)
-                        != PackageManager.PERMISSION_GRANTED) {
-                    requestPermission();
-                } else {
-                    startRecognition();
-                    recognitionProgressView.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            startRecognition();
-                        }
-                    }, 50);
-                }
-            }
-        });
-        */
-
-
-
         /* TTS, STT */
 
 
@@ -153,7 +137,6 @@ public class MainActivity extends AppCompatActivity{
         intent.putExtra("data", result);
         startActivityForResult(intent, 1);
     }
-
 
     private void startRecognition() {
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);

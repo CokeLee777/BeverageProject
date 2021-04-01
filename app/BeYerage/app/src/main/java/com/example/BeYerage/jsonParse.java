@@ -32,10 +32,16 @@ public class jsonParse extends AppCompatActivity {
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
 
                 //이건 json 데이터에 따라 바뀜
+                Long id = jsonObject.getLong("id");
                 String name = jsonObject.getString("name");
-                int age = jsonObject.getInt("age");
-                String address = jsonObject.getString("address");
-                stringBuilder.append(name).append("의 위치는 ").append(" 위치 : ").append(" 위치 : ").append(age).append(" 가격 : ").append(address).append("\n");
+                int price = jsonObject.getInt("price");
+                String type = jsonObject.getString("type");
+                int size = jsonObject.getInt("size");
+
+                //말할 내용 세팅
+                stringBuilder.append(name).append("의 가격은").append(price).append("원 이며 ")
+                        .append(size).append("밀리리터 용량의 ")
+                        .append(type).append("음료 입니다").append("\n");
             }
             tts_text.setData(String.valueOf(stringBuilder));
         } catch (JSONException e) {
