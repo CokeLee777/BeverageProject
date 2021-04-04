@@ -114,8 +114,8 @@ public class MainActivity extends AppCompatActivity{
         checkTTS();
 
         //버튼 클릭시 음성 안내 서비스 호출
-        //원래 voiceButton임 0323
-        recognitionProgressView.setOnClickListener(view -> {
+        //중간 1차 끝나고 voiceButton을 recognitionProgressView로 바꿔야함
+        voiceButton.setOnClickListener(view -> {
             //음성안내 시작
             shopService.voiceGuidance(tts);
             new Handler().postDelayed(new Runnable() {
@@ -258,11 +258,9 @@ public class MainActivity extends AppCompatActivity{
                 @Override
                 public void run() {
                     httpConn(str);
-                    //tts_restart(httpResponse);
                 }
             });
             httpThread.start();
-
         }
     }
 
@@ -283,7 +281,6 @@ public class MainActivity extends AppCompatActivity{
 
     //음성인식 환경설정
     private void startSTT(){
-        //퍼미션 체크했는데 오류뜸..
         //STT 퍼미션 체크
         if(Build.VERSION.SDK_INT >= 23 && ContextCompat.checkSelfPermission(this,
                 Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED){
@@ -388,7 +385,6 @@ public class MainActivity extends AppCompatActivity{
                 tts.setLanguage(Locale.KOREAN);
             }
         });
-
     }
 
     // 앱 종료시
