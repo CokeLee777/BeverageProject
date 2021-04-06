@@ -74,12 +74,14 @@ cv.namedWindow('img_result')
 cv.createTrackbar('threshold', 'img_result', 0, 255, nothing)
 cv.setTrackbarPos('threshold', 'img_result', 30)
 
+cam = cv.VideoWriter('test0406.avi',cv.VideoWriter_fourcc('D', 'I', 'V', 'X'),25,(640,480))
 cap = cv.VideoCapture(0)
-
+    #img_color = cv.imread('2.jpg')
 while(True):
     #img_color = cv.imread('2.jpg')
     ret,img_color = cap.read()
     height, width = img_color.shape[:2]
+    #print(img_color.shape[:2])
     img_color = cv.resize(img_color, (width, height), interpolation=cv.INTER_AREA)
 
     # 원본 영상을 HSV 영상으로 변환합니다.
@@ -147,15 +149,16 @@ while(True):
                     
                 cv.circle(img_color, (centerX, centerY), 10, (0,0,255), 10)
                 cv.rectangle(img_color, (x,y), (x+width,y+height), (0,0,255))
-
+    
+    cam.write(img_color)
     cv.imshow('img_color', img_color)
-    cv.imshow('img_mask', img_mask)
+    #cv.imshow('img_mask', img_mask)
     cv.imshow('img_result', img_result)
-
 
     # ESC 키누르면 종료
     if cv.waitKey(1) & 0xFF == 27:
+        cam.release()
+        print('영상을 종료합니다. 녹화가 진행되었습니다.')
         break
-
 
 cv.destroyAllWindows()

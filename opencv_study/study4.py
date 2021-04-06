@@ -54,7 +54,7 @@ net.setPreferableTarget(cv.dnn.DNN_TARGET_CUDA)
 
 #cap = cv.VideoCapture('table2.mp4')
 cap = cv.VideoCapture('table4.mp4')
-cam = cv.VideoWriter('cokeVScider.avi',cv.VideoWriter_fourcc('D', 'I', 'V', 'X'),25,(600,400))
+cam = cv.VideoWriter('cokeVScider1.avi',cv.VideoWriter_fourcc('D', 'I', 'V', 'X'),25,(600,400))
 
 inputHeight = 368
 inputWidth = 368
