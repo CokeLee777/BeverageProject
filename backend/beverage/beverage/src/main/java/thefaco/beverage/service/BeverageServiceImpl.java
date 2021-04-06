@@ -22,6 +22,7 @@ public class BeverageServiceImpl implements BeverageService{
         beverageRepository.save(beverage);
     }
 
+    //음료 수정
     @Override
     @Transactional
     public void update(Long beverageId, String name, int price, String type, int size) {
@@ -31,7 +32,7 @@ public class BeverageServiceImpl implements BeverageService{
         findBeverage.setType(type);
         findBeverage.setSize(size);
     }
-
+    //음료 삭제
     @Override
     @Transactional
     public void delete(Long beverageId) {
