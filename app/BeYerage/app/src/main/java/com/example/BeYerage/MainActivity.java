@@ -55,7 +55,6 @@ public class MainActivity extends AppCompatActivity{
 
 
 
-    //애니메이션을 위한 선언
     private SpeechRecognizer speechRecognizer;
     //음성 허용 확인
     private static final int REQUEST_RECORD_AUDIO_PERMISSION_CODE = 1;
