@@ -1,5 +1,5 @@
 def connect(B_name):
-    with open("forconnect6.txt", "r") as f:
+    with open("forconnect7.txt", "r") as f:
         # data = list(f.read())
         x = list(f.readlines())
         # print("read")

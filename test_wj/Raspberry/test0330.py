@@ -26,7 +26,7 @@ finally:
 '''
 def Bname(Bname, Bname2):
     lcd.text('BeYerage Team, ', 1)
-    lcd.text('Beverage :', 2)
+    lcd.text('Beverage Information', 2)
     lcd.text(Bname, 3)
     lcd.text(Bname2, 4)
     # if time.sleep(3):

@@ -29,10 +29,10 @@ else:
 
 # print(r1.status_code)
 # print(r1.text)
-with open("forconnect5.txt", "w") as f:
+with open("forconnect7.txt", "w") as f:
     print(string1)
     f.write(string1)
-with open("forconnect6.txt", "w") as f:
+with open("forconnect8.txt", "w") as f:
     # f.write(mstring1)
     f.write(mstring1)    
 
