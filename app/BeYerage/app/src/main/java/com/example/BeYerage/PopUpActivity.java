@@ -20,14 +20,12 @@ public class PopUpActivity extends Activity {
         super.onCreate(savedInstanceState);
         //타이틀바 없애기
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.popup_activity);
+        setContentView(R.layout.activity_popup);
 
         //UI 객체생성
         popupText = (TextView)findViewById(R.id.popupText);
 
         //음료 데이터 가져오기
-
-        //일단 받아본 다음에 자르자
         Intent intent = getIntent();
         String data = intent.getStringExtra("data");
         popupText.setText(data);

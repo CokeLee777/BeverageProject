@@ -1,6 +1,7 @@
 package com.example.BeYerage;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
@@ -14,6 +15,7 @@ import android.speech.tts.TextToSpeech;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -59,6 +61,7 @@ public class MainActivity extends AppCompatActivity{
     //음성 허용 확인
     private static final int REQUEST_RECORD_AUDIO_PERMISSION_CODE = 1;
 
+    public static final int sub = 1001; /*다른 액티비티를 띄우기 위한 요청코드(상수)*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,20 +99,21 @@ public class MainActivity extends AppCompatActivity{
         recognitionProgressView.setRotationRadiusInDp(25); // O 모양 회전할 때 반지름
         recognitionProgressView.play();
 
+        /* 주변 편의점 버튼 */
+        TextView textArround = (TextView) findViewById(R.id.arround);
+        textArround.setOnClickListener(view -> {
+            Intent intent = new Intent(this, MapActivity.class);
+            startActivityForResult(intent,sub);
+        });
 
         /* TTS, STT */
-
-
-        //음성 버튼
-        ImageButton voiceButton = findViewById(R.id.voiceButton);
-        Button listen = (Button) findViewById(R.id.listen);
 
         //TTS 환경설정
         checkTTS();
 
         //버튼 클릭시 음성 안내 서비스 호출
         //중간 1차 끝나고 voiceButton을 recognitionProgressView로 바꿔야함
-        voiceButton.setOnClickListener(view -> {
+        recognitionProgressView.setOnClickListener(view -> {
             //음성안내 시작
             shopService.voiceGuidance(tts);
             new Handler().postDelayed(new Runnable() {
@@ -125,10 +129,10 @@ public class MainActivity extends AppCompatActivity{
 
 
     /* 팝업창 */
-    public void mOnPopupClick(){
+    public void mOnPopupClick(String str){
         //데이터 담아서 팝업(액티비티) 호출
         Intent intent = new Intent(this, PopUpActivity.class);
-        intent.putExtra("data", result);
+        intent.putExtra("data", str);
         startActivityForResult(intent, 1);
     }
 
@@ -265,7 +269,9 @@ public class MainActivity extends AppCompatActivity{
                 //언어 선택
                 tts2.setLanguage(Locale.KOREAN);
                 shopService.voiceGuidance2(tts2, result);
-                //mOnPopupClick();
+                if (result != null){
+                    mOnPopupClick(result);
+                }
 
                 /* json 파싱 */
                 // ((jsonParse)jsonParse.mContext).parse();
