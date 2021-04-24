@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity{
     //음성 허용 확인
     private static final int REQUEST_RECORD_AUDIO_PERMISSION_CODE = 1;
 
-    public static final int sub = 1001; /*다른 액티비티를 띄우기 위한 요청코드(상수)*/
+    public static final int sub = 1001; /* Map 액티비티를 띄우기 위한 요청코드(상수)*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
