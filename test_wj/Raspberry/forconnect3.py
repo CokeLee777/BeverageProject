@@ -20,7 +20,7 @@ with open("forconnect8.txt", "r") as f:
         if x_name[1] ==  k:
             print(x_name)
             print(xy_name)
-            print(" 선택하신 음료는 " + xy_name[1][8:-1] + " 입니다. 또한 해당 음료의 가격은 " + xy_name[2][8:] + " 원, 해당 음료의 크기는 " + xy_name[4][7:] + " mm 입니다.")
+            print(" 선택하신 음료는 " + x_name[1][8:-1] + " 입니다. 또한 해당 음료의 가격은 " + x_name[2][8:] + " 원, 해당 음료의 크기는 " + x_name[4][7:] + " mm 입니다.")
             t += 1
         
     if t == 0:
