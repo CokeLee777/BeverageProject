@@ -23,10 +23,10 @@ cv.namedWindow('img_color')
 cv.namedWindow('img_result')
 
 cam = cv.VideoWriter('sample_basic.avi',cv.VideoWriter_fourcc('D', 'I', 'V', 'X'),25,(640,480))
-cap = cv.VideoCapture(0)
+cap = cv.VideoCapture(1)
 
 
-f = open('first_dataset.csv','w', newline='')
+f = open('first_dataset_3.csv','w', newline='')
 b_number = 0
 
 while(True):
@@ -77,8 +77,8 @@ while(True):
         # wr.writerow([centerX,centerY,width,height,area,b_number])
 
 
-        if  250 > height > 150:
-            if 160 > width > 80:
+        if  450 > height > 100:
+            if 360 > width > 50:
                 if key == ord(' '):
                     b_number = input("해당되는 번호를 누르세요\n")
                     key = key = cv.waitKey(1)
