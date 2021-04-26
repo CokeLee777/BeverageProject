@@ -20,6 +20,10 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDhRlvHGbJLlV4xzurOyDfcRt3R6b-dcUc" />
 
+        <meta-data
+            android:name="com.kakao.sdk.AppKey"
+            android:value="2483409913d2be6f9297f6aa9fa8ee51"/>
+
         <activity android:name=".SplashActivity"
             android:theme="@style/SplashTheme">
             <intent-filter>
