@@ -142,7 +142,7 @@ public class MainActivity extends AppCompatActivity{
 
     private void showResults(Bundle results) {
         ArrayList<String> matches = results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
-        Toast.makeText(this, matches.get(0), Toast.LENGTH_LONG).show();
+        //Toast.makeText(this, matches.get(0), Toast.LENGTH_LONG).show();
     }
 
     private void requestPermission() {
@@ -246,7 +246,7 @@ public class MainActivity extends AppCompatActivity{
 
             //말한 음료 값
             String str = results.get(0);
-            Toast.makeText(getBaseContext(), str, Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getBaseContext(), str, Toast.LENGTH_SHORT).show();
 
             Thread httpThread = new Thread(new Runnable() {
                 @Override

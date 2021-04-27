@@ -54,15 +54,15 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
     private static final String TAG = "googlemap_example";
     private static final int GPS_ENABLE_REQUEST_CODE = 2001;
-    private static final int UPDATE_INTERVAL_MS = 600000000;  // 내위치 업데이트 : 600초
-    private static final int FASTEST_UPDATE_INTERVAL_MS = 5000; // 5초
+    private static final int UPDATE_INTERVAL_MS = 200000;  // 내위치 업데이트 : 200초
+    private static final int FASTEST_UPDATE_INTERVAL_MS = 500000; // 500초
 
     private FusedLocationProviderClient mFusedLocationClient;
     private Location location;
     // 앱을 실행하기 위해 필요한 퍼미션을 정의합니다.
     String[] REQUIRED_PERMISSIONS  = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION};  // 외부 저장소
     Location mCurrentLocation;
-    LatLng currentPosition;
+    LatLng convenience_store;
 
     private static final int PERMISSIONS_REQUEST_CODE = 100;
     boolean needRequest = false;
@@ -105,7 +105,8 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         Log.d(TAG, "onMapReady :");
         mMap = googleMap;
         mMap.getUiSettings().setZoomControlsEnabled(true);
-        setDefaultLocation();
+        //setDefaultLocation();
+
         //런타임 퍼미션 처리
         // 1. 위치 퍼미션을 가지고 있는지 체크합니다.
         int hasFineLocationPermission = ContextCompat.checkSelfPermission(this,
@@ -192,23 +193,17 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             if (locationList.size() > 0) {
                 location = locationList.get(locationList.size() - 1);
 
-                currentPosition
-                        = new LatLng(location.getLatitude(), location.getLongitude());
-
-
-                String markerTitle = getCurrentAddress(currentPosition);
-                String markerSnippet = "위도:" + String.valueOf(location.getLatitude())
-                        + " 경도:" + String.valueOf(location.getLongitude());
-
-                Log.d(TAG, "onLocationResult 내 위치 : " + markerSnippet);
-
                 LatLng currentLatLng = new LatLng(location.getLatitude(), location.getLongitude());
 
+                String markerTitle = ("경기대학교 제2공학관 4층 편의점");
+                String markerSnippet = ("경기도 수원시 영통구 광교산로 154-42");
+
+                Log.d(TAG, "onLocationResult 내 위치 : " + currentLatLng);
+
                 MarkerOptions markerOptions = new MarkerOptions()
-                        .position(currentLatLng)
+                        .position(MARKER_POINT)
                         .title(markerTitle)
                         .snippet(markerSnippet)
-                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.arrow))
                         .flat(true);
 
                 //반경 원 표시
@@ -223,9 +218,10 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLng(currentLatLng);
                 mMap.moveCamera(cameraUpdate);
 
-                //현재 위치에 마커 생성하고 이동
-                setCurrentLocation(location, markerTitle, markerSnippet);
+//                //현재 위치에 마커 생성하고 이동
+//                setCurrentLocation(location, markerTitle, markerSnippet);
                 mCurrentLocation = location;
+
             }
         }
     };
@@ -279,16 +275,15 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         currentMarker = mMap.addMarker(markerOptions);
         //CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(DEFAULT_LOCATION, 15);
         //mMap.moveCamera(cameraUpdate);
-
     }
 
     public void setCurrentLocation(Location location, String markerTitle, String markerSnippet) {
         if (currentMarker != null) currentMarker.remove();
         LatLng currentLatLng = new LatLng(location.getLatitude(), location.getLongitude());
         MarkerOptions markerOptions = new MarkerOptions();
-        markerOptions.position(currentLatLng);
-        markerOptions.title("내 위치");
-        markerOptions.draggable(true);
+        markerOptions.position(currentLatLng)
+                .title("내 위치")
+                .draggable(true);
         currentMarker = mMap.addMarker(markerOptions);
         CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLng(currentLatLng);
         mMap.moveCamera(cameraUpdate);
@@ -323,7 +318,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
             boolean check_result = true;
 
-
             // 모든 퍼미션을 허용했는지 체크합니다.
 
             for (int result : grandResults) {
@@ -332,7 +326,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                     break;
                 }
             }
-
 
             if ( check_result ) {
 
@@ -345,28 +338,21 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 if (ActivityCompat.shouldShowRequestPermissionRationale(MapActivity.this, REQUIRED_PERMISSIONS[0])
                         || ActivityCompat.shouldShowRequestPermissionRationale(MapActivity.this, REQUIRED_PERMISSIONS[1])) {
 
-
                     // 사용자가 거부만 선택한 경우에는 앱을 다시 실행하여 허용을 선택하면 앱을 사용할 수 있습니다.
                     Snackbar.make(map, "퍼미션이 거부되었습니다. 앱을 다시 실행하여 퍼미션을 허용해주세요. ",
                             Snackbar.LENGTH_INDEFINITE).setAction("확인", new View.OnClickListener() {
-
                         @Override
                         public void onClick(View view) {
-
                             finish();
                         }
                     }).show();
-
                 }else {
-
 
                     // "다시 묻지 않음"을 사용자가 체크하고 거부를 선택한 경우에는 설정(앱 정보)에서 퍼미션을 허용해야 앱을 사용할 수 있습니다.
                     Snackbar.make(map, "퍼미션이 거부되었습니다. 설정(앱 정보)에서 퍼미션을 허용해야 합니다. ",
                             Snackbar.LENGTH_INDEFINITE).setAction("확인", new View.OnClickListener() {
-
                         @Override
                         public void onClick(View view) {
-
                             finish();
                         }
                     }).show();
@@ -375,7 +361,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
         }
     }
-
 
     //여기부터는 GPS 활성화를 위한 메소드들
     private void showDialogForLocationServiceSetting() {
@@ -417,6 +402,16 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 }
                 break;
         }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        stopLocationUpdates();
+    }
+
+    private void stopLocationUpdates() {
+        mFusedLocationClient.removeLocationUpdates(locationCallback);
     }
 
     @Override
