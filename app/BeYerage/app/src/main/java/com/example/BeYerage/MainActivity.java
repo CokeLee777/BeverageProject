@@ -1,7 +1,6 @@
 package com.example.BeYerage;
 
 import android.Manifest;
-import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
@@ -13,9 +12,7 @@ import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
 import android.speech.tts.TextToSpeech;
 import android.util.Log;
-import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.TextView;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -68,7 +65,6 @@ public class MainActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
         /* 애니메이션 만들기 */
         int[] colors = {
                 ContextCompat.getColor(this, R.color.color1),
@@ -100,8 +96,8 @@ public class MainActivity extends AppCompatActivity{
         recognitionProgressView.play();
 
         /* 주변 편의점 버튼 */
-        TextView textArround = (TextView) findViewById(R.id.arround);
-        textArround.setOnClickListener(view -> {
+        ImageView imageArround = (ImageView) findViewById(R.id.arround);
+        imageArround.setOnClickListener(view -> {
             Intent intent = new Intent(this, MapActivity.class);
             startActivityForResult(intent,sub);
         });
@@ -269,9 +265,9 @@ public class MainActivity extends AppCompatActivity{
                 //언어 선택
                 tts2.setLanguage(Locale.KOREAN);
                 shopService.voiceGuidance2(tts2, result);
-                if (result != null){
-                    mOnPopupClick(result);
-                }
+//                if (result != null){
+//                    mOnPopupClick(result);
+//                }
 
                 /* json 파싱 */
                 // ((jsonParse)jsonParse.mContext).parse();

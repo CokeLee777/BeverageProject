@@ -39,6 +39,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".MapActivity" />
+        <activity android:name=".MapActivity_kakao" />
         <activity android:name=".PopUpActivity" android:theme="@android:style/Theme.Dialog" />
     </application>
 
