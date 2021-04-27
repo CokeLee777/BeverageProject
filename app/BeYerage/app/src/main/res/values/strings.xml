@@ -1,4 +1,6 @@
 <resources>
     <string name="app_name">BeYerage</string>
     <string name="check">찾으시는 음료가 없습니다.</string>
+    <string name="kyonggi">경기대학교 제2공학관 4층 편의점</string>
+    <string name="kyonggi2">경기도 수원시 영통구 광교산로 154-42</string>
 </resources>

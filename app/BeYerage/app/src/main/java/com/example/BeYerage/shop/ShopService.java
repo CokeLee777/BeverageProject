@@ -7,4 +7,6 @@ public interface ShopService {
     void voiceGuidance(TextToSpeech tts);
     //음료 위치안내
     void voiceGuidance2(TextToSpeech tts, String result);
+    //지원 편의점 안내
+    void voiceGuidance3(TextToSpeech tts);
 }

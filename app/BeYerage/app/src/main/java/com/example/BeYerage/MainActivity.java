@@ -52,8 +52,6 @@ public class MainActivity extends AppCompatActivity{
     //퍼미션 체크를 위한 변수
     private final int PERMISSION = 1;
 
-
-
     private SpeechRecognizer speechRecognizer;
     //음성 허용 확인
     private static final int REQUEST_RECORD_AUDIO_PERMISSION_CODE = 1;
@@ -78,7 +76,6 @@ public class MainActivity extends AppCompatActivity{
 
         speechRecognizer = SpeechRecognizer.createSpeechRecognizer(this);
 
-
         final RecognitionProgressView recognitionProgressView = (RecognitionProgressView) findViewById(R.id.fivecolor_view);
         recognitionProgressView.setSpeechRecognizer(speechRecognizer);
         recognitionProgressView.setRecognitionListener(new RecognitionListenerAdapter() {
@@ -95,7 +92,7 @@ public class MainActivity extends AppCompatActivity{
         recognitionProgressView.setRotationRadiusInDp(25); // O 모양 회전할 때 반지름
         recognitionProgressView.play();
 
-        /* 주변 편의점 버튼 */
+        /* 지원 편의점 버튼 */
         ImageView imageArround = (ImageView) findViewById(R.id.arround);
         imageArround.setOnClickListener(view -> {
             Intent intent = new Intent(this, MapActivity.class);
@@ -108,7 +105,6 @@ public class MainActivity extends AppCompatActivity{
         checkTTS();
 
         //버튼 클릭시 음성 안내 서비스 호출
-        //중간 1차 끝나고 voiceButton을 recognitionProgressView로 바꿔야함
         recognitionProgressView.setOnClickListener(view -> {
             //음성안내 시작
             shopService.voiceGuidance(tts);

@@ -5,16 +5,15 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
-import android.location.Address;
-import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Looper;
+import android.speech.tts.TextToSpeech;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -23,6 +22,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.example.BeYerage.shop.ShopService;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
@@ -41,7 +41,6 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.snackbar.Snackbar;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 
@@ -49,8 +48,17 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
     private GoogleMap mMap;
     private LocationRequest locationRequest;
-    private FusedLocationProviderClient fusedLocationProviderClient;
     private Marker currentMarker = null;
+    //퍼미션 체크를 위한 변수
+    private final int PERMISSION = 1;
+    //음성 허용 확인
+    private static final int REQUEST_RECORD_AUDIO_PERMISSION_CODE = 1;
+
+    private TextToSpeech tts;
+    //컨트롤러
+    private static final AppConfig appConfig = new AppConfig();
+    //음성 서비스
+    private static final ShopService shopService = appConfig.shopService();
 
     private static final String TAG = "googlemap_example";
     private static final int GPS_ENABLE_REQUEST_CODE = 2001;
@@ -62,16 +70,15 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     // 앱을 실행하기 위해 필요한 퍼미션을 정의합니다.
     String[] REQUIRED_PERMISSIONS  = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION};  // 외부 저장소
     Location mCurrentLocation;
-    LatLng convenience_store;
 
     private static final int PERMISSIONS_REQUEST_CODE = 100;
     boolean needRequest = false;
     private View map;
     TextView textView_name;
     TextView textView_address;
+    Button button_sound;
 
     private static final LatLng MARKER_POINT = new LatLng(37.3003145103416, 127.04004889172158); //제2공학관
-
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -80,6 +87,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         map = findViewById(R.id.map);
         textView_name = (TextView) findViewById(R.id.textView_name);
         textView_address = (TextView) findViewById(R.id.textView_address);
+        button_sound = (Button) findViewById(R.id.button_sound);
 
         locationRequest = new LocationRequest()
                 .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
@@ -98,6 +106,46 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+        //TTS 환경설정
+        checkTTS();
+
+        //버튼 클릭시 음성 안내 서비스 호출
+        button_sound.setOnClickListener(view -> {
+            //음성안내 시작
+            shopService.voiceGuidance3(tts);
+        });
+    }
+    private void checkTTS(){
+        //TTS를 생성하고 OnInitListener로 초기화
+        tts = new TextToSpeech(this, status -> {
+            if(status == TextToSpeech.SUCCESS) {
+                //언어 선택
+                tts.setLanguage(Locale.KOREAN);
+            }
+        });
+    }
+
+    private void startTTS(String result){
+        //음료 위치 tts 안내
+        tts = new TextToSpeech(this, status -> {
+            if(status == TextToSpeech.SUCCESS) {
+                //언어 선택
+                tts.setLanguage(Locale.KOREAN);
+                shopService.voiceGuidance3(tts);
+            }
+        });
+    }
+
+    // 앱 종료시
+    @Override
+    protected void onDestroy() {
+        // Don't forget to shutdown!
+        if (tts != null) {
+            tts.stop();
+            tts.shutdown();
+        }
+        super.onDestroy();
     }
 
     @Override
@@ -154,6 +202,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         mMap.setOnMarkerClickListener(this);
     }
 
+    /*
     public String getCurrentAddress(LatLng latlng) {
         //지오코더... GPS를 주소로 변환
         Geocoder geocoder = new Geocoder(this, Locale.getDefault());
@@ -182,6 +231,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         }
 
     }
+    */
 
     LocationCallback locationCallback = new LocationCallback() {
         @Override
@@ -195,8 +245,8 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
                 LatLng currentLatLng = new LatLng(location.getLatitude(), location.getLongitude());
 
-                String markerTitle = ("경기대학교 제2공학관 4층 편의점");
-                String markerSnippet = ("경기도 수원시 영통구 광교산로 154-42");
+                String markerTitle = getString(R.string.kyonggi);
+                String markerSnippet = getString(R.string.kyonggi2);
 
                 Log.d(TAG, "onLocationResult 내 위치 : " + currentLatLng);
 
@@ -220,6 +270,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
 //                //현재 위치에 마커 생성하고 이동
 //                setCurrentLocation(location, markerTitle, markerSnippet);
+                setCurrentLocation(location, null,null);
                 mCurrentLocation = location;
 
             }
