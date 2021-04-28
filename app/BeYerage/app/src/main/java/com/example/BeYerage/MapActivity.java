@@ -49,6 +49,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     private GoogleMap mMap;
     private LocationRequest locationRequest;
     private Marker currentMarker = null;
+    private Marker storeMarker = null;
     //퍼미션 체크를 위한 변수
     private final int PERMISSION = 1;
     //음성 허용 확인
@@ -116,6 +117,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             shopService.voiceGuidance3(tts);
         });
     }
+
     private void checkTTS(){
         //TTS를 생성하고 OnInitListener로 초기화
         tts = new TextToSpeech(this, status -> {
@@ -199,6 +201,17 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 Log.d(TAG, "onMapClick :");
             }
         });
+        String markerTitle = getString(R.string.kyonggi);
+        String markerSnippet = getString(R.string.kyonggi2);
+
+        MarkerOptions markerOptions = new MarkerOptions()
+                .position(MARKER_POINT)
+                .title(markerTitle)
+                .snippet(markerSnippet)
+                .flat(true);
+
+        storeMarker = mMap.addMarker(markerOptions);
+        storeMarker.showInfoWindow();
         mMap.setOnMarkerClickListener(this);
     }
 
@@ -244,17 +257,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 location = locationList.get(locationList.size() - 1);
 
                 LatLng currentLatLng = new LatLng(location.getLatitude(), location.getLongitude());
-
-                String markerTitle = getString(R.string.kyonggi);
-                String markerSnippet = getString(R.string.kyonggi2);
-
                 Log.d(TAG, "onLocationResult 내 위치 : " + currentLatLng);
-
-                MarkerOptions markerOptions = new MarkerOptions()
-                        .position(MARKER_POINT)
-                        .title(markerTitle)
-                        .snippet(markerSnippet)
-                        .flat(true);
 
                 //반경 원 표시
                 CircleOptions circle500m = new CircleOptions().center(currentLatLng) //원점
@@ -262,15 +265,12 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                         .strokeWidth(0f)  //선너비 0f : 선없음
                         .fillColor(Color.parseColor("#1A79C2F0")); //배경색
 
-                currentMarker = mMap.addMarker(markerOptions);
-                currentMarker.showInfoWindow();
                 mMap.addCircle(circle500m);
                 CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLng(currentLatLng);
                 mMap.moveCamera(cameraUpdate);
 
 //                //현재 위치에 마커 생성하고 이동
-//                setCurrentLocation(location, markerTitle, markerSnippet);
-                setCurrentLocation(location, null,null);
+                //setCurrentLocation(location, null,null);
                 mCurrentLocation = location;
 
             }
