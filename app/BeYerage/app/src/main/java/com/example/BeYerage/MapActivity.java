@@ -242,7 +242,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             Address address = addresses.get(0);
             return address.getAddressLine(0).toString();
         }
-
     }
     */
 
@@ -266,13 +265,12 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                         .fillColor(Color.parseColor("#1A79C2F0")); //배경색
 
                 mMap.addCircle(circle500m);
-                CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLng(currentLatLng);
+                CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(currentLatLng, 15);
                 mMap.moveCamera(cameraUpdate);
 
-//                //현재 위치에 마커 생성하고 이동
-                //setCurrentLocation(location, null,null);
                 mCurrentLocation = location;
-
+                //현재 위치에 마커 생성하고 이동
+                //setCurrentLocation(location, null,null);
             }
         }
     };
@@ -324,8 +322,8 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         markerOptions.draggable(true);
         markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
         currentMarker = mMap.addMarker(markerOptions);
-        //CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(DEFAULT_LOCATION, 15);
-        //mMap.moveCamera(cameraUpdate);
+        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(DEFAULT_LOCATION, 15);
+        mMap.moveCamera(cameraUpdate);
     }
 
     public void setCurrentLocation(Location location, String markerTitle, String markerSnippet) {
