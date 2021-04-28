@@ -30,11 +30,16 @@ else:
 # print(r1.status_code)
 # print(r1.text)
 with open("forconnect7.txt", "w") as f:
+    print("음료 위치 ")
     print(string1)
     f.write(string1)
+    print("")
 with open("forconnect8.txt", "w") as f:
     # f.write(mstring1)
-    f.write(mstring1)    
+    f.write(mstring1)   
+    print("음료 상세 정보 ") 
+    print(mstring1)
+    
 
 
 print("time :", time.time() - start)  # 현재시각 - 시작시간 = 실행 시간

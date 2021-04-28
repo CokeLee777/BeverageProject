@@ -28,7 +28,7 @@ upper_blue3 = np.array([hsv[0], 255, 255])
 cv.namedWindow('img_color')
 cv.namedWindow('img_result')
 
-cam = cv.VideoWriter('sample_basic_r1.avi',cv.VideoWriter_fourcc('D', 'I', 'V', 'X'),25,(640,480))
+cam = cv.VideoWriter('sample_basic_r1_0427.avi',cv.VideoWriter_fourcc('D', 'I', 'V', 'X'),25,(640,480))
 cap = cv.VideoCapture(1)
 
 
@@ -48,7 +48,7 @@ model = tf.keras.models.Sequential([
 ])
 
 
-model.load_weights('bp3_checkpoint')
+model.load_weights('bp0427_checkpoint')
 model.summary()
 #print(model.predict(x_test[:1]))
 #print(x_test[:1])

@@ -27,15 +27,16 @@ class server():
                 mstring1 = mstring1.replace("}","")
             else:
                 print("동일한 부분이 존재하지 않습니다.")
-            with open("forconnect9.txt", "w") as f:
+            with open("forconnect10.txt", "w") as f:
                 print(string1)
                 f.write(string1)
-            with open("forconnect10.txt", "w") as f:
-                f.write(mstring1)    
+            with open("forconnect11.txt", "w") as f:
+                f.write(mstring1)
+                print("음료 안내")
+                print(mstring1)
 
             print("time :", time.time() - start)  
             # 현재시각 - 시작시간 = 실행 시간
         except Exception as ex:
             print("서버 연결에 문제가 발생하였습니다.")
             print(ex)
-

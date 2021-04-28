@@ -51,8 +51,7 @@ while(True):
 
     # 마스크 이미지로 원본 이미지에서 범위값에 해당되는 영상 부분을 획득합니다.
     img_result = cv.bitwise_and(img_color, img_color, mask=img_mask)
-
-
+    
     numOfLabels, img_label, stats, centroids = cv.connectedComponentsWithStats(img_mask)
     key = cv.waitKey(1)
     for idx, centroid in enumerate(centroids):
