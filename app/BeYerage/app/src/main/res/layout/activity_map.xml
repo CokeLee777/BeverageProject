@@ -37,7 +37,7 @@
             android:fontFamily="@font/font_goyangilsan"
             android:text="음성안내"
             android:textColor="#000"
-            android:textSize="26sp"
+            android:textSize="30sp"
             android:textStyle="bold" />
     </FrameLayout>
 

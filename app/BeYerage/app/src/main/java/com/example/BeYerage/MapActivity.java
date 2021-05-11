@@ -88,6 +88,8 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         map = findViewById(R.id.map);
         textView_name = (TextView) findViewById(R.id.textView_name);
         textView_address = (TextView) findViewById(R.id.textView_address);
+        textView_name.setText("경기대학교 제2공학관 4층 편의점");
+        textView_address.setText("경기도 수원시 영통구 광교산로 154-42");
         button_sound = (Button) findViewById(R.id.button_sound);
 
         locationRequest = new LocationRequest()

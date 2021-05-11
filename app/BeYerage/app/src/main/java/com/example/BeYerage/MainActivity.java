@@ -1,6 +1,7 @@
 package com.example.BeYerage;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
@@ -119,7 +120,6 @@ public class MainActivity extends AppCompatActivity{
         });
     }
 
-
     /* 팝업창 */
     public void mOnPopupClick(String str){
         //데이터 담아서 팝업(액티비티) 호출
@@ -138,7 +138,6 @@ public class MainActivity extends AppCompatActivity{
 
     private void showResults(Bundle results) {
         ArrayList<String> matches = results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
-        //Toast.makeText(this, matches.get(0), Toast.LENGTH_LONG).show();
     }
 
     private void requestPermission() {
@@ -167,6 +166,10 @@ public class MainActivity extends AppCompatActivity{
                     public void onResponse(String response) {
                         startTTS(response);
                         Log.d("result", response);
+                        //mOnPopupClick(response);
+                        Intent intent = new Intent(getBaseContext(), DetailActivity.class);
+                        intent.putExtra("data", response);
+                        startActivityForResult(intent, 1);
                     }
                 },
                 // 에러 발생 시
@@ -210,7 +213,6 @@ public class MainActivity extends AppCompatActivity{
         @Override
         protected void onPostExecute(String result) {
             try {
-
             } catch (Exception e) {
                 Log.d("onActivityResult", "getImageURL exception");
             }
@@ -218,7 +220,6 @@ public class MainActivity extends AppCompatActivity{
     }
 
     private void getVoice() {
-
         Intent intent = new Intent();
         intent.setAction(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
@@ -234,16 +235,12 @@ public class MainActivity extends AppCompatActivity{
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         // TODO Auto-generated method stub
         super.onActivityResult(requestCode, resultCode, data);
-
         if (resultCode == RESULT_OK) {
-
             ArrayList<String> results = data
                     .getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
 
             //말한 음료 값
             String str = results.get(0);
-            //Toast.makeText(getBaseContext(), str, Toast.LENGTH_SHORT).show();
-
             Thread httpThread = new Thread(new Runnable() {
                 @Override
                 public void run() {
@@ -261,12 +258,9 @@ public class MainActivity extends AppCompatActivity{
                 //언어 선택
                 tts2.setLanguage(Locale.KOREAN);
                 shopService.voiceGuidance2(tts2, result);
-//                if (result != null){
+//                if (!result.equals("찾으시는 음료가 없습니다.")){
 //                    mOnPopupClick(result);
 //                }
-
-                /* json 파싱 */
-                // ((jsonParse)jsonParse.mContext).parse();
             }
         });
     }
@@ -279,10 +273,8 @@ public class MainActivity extends AppCompatActivity{
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.INTERNET,
                     Manifest.permission.RECORD_AUDIO},PERMISSION);
         }
-
         VoiceTask voiceTask = new VoiceTask();
         voiceTask.execute();
-
     }
 
     private RecognitionListener listener = new RecognitionListener() {
@@ -292,24 +284,16 @@ public class MainActivity extends AppCompatActivity{
         }
 
         @Override
-        public void onBeginningOfSpeech() {
-
-        }
+        public void onBeginningOfSpeech() {}
 
         @Override
-        public void onRmsChanged(float rmsdB) {
-
-        }
+        public void onRmsChanged(float rmsdB) {}
 
         @Override
-        public void onBufferReceived(byte[] buffer) {
-
-        }
+        public void onBufferReceived(byte[] buffer) {}
 
         @Override
-        public void onEndOfSpeech() {
-
-        }
+        public void onEndOfSpeech() {}
 
         @Override
         public void onError(int error) {
@@ -347,7 +331,6 @@ public class MainActivity extends AppCompatActivity{
                     message = "알 수 없는 오류임";
                     break;
             }
-
             Toast.makeText(getApplicationContext(), "에러가 발생하였습니다. : " + message,Toast.LENGTH_SHORT).show();
         }
 
@@ -355,18 +338,11 @@ public class MainActivity extends AppCompatActivity{
         public void onResults(Bundle results) {
             ArrayList<String> matches = results
                     .getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
-
         }
-
         @Override
-        public void onPartialResults(Bundle partialResults) {
-
-        }
-
+        public void onPartialResults(Bundle partialResults) {}
         @Override
-        public void onEvent(int eventType, Bundle params) {
-
-        }
+        public void onEvent(int eventType, Bundle params) {}
     };
 
     private void checkTTS(){
@@ -382,20 +358,15 @@ public class MainActivity extends AppCompatActivity{
     // 앱 종료시
     @Override
     protected void onDestroy() {
-
         // Don't forget to shutdown!
         if (tts != null) {
             tts.stop();
             tts.shutdown();
         }
-
         if (tts2 != null) {
             tts2.stop();
             tts2.shutdown();
         }
-
         super.onDestroy();
-
     }
-
 }

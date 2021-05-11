@@ -13,7 +13,7 @@ import android.widget.TextView;
 public class PopUpActivity extends Activity {
 
     TextView popupText;
-
+    //음료 데이터 가져오기
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,12 +22,10 @@ public class PopUpActivity extends Activity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_popup);
 
-        //UI 객체생성
-        popupText = (TextView)findViewById(R.id.popupText);
-
-        //음료 데이터 가져오기
         Intent intent = getIntent();
         String data = intent.getStringExtra("data");
+        //UI 객체생성
+        popupText = (TextView)findViewById(R.id.popupText);
         popupText.setText(data);
     }
 
