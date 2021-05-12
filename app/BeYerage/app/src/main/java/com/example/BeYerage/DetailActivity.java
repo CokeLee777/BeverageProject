@@ -32,10 +32,6 @@ public class DetailActivity extends AppCompatActivity {
         String second_sentence = data.substring(data.length()-13, data.length()-12); //@행
         String second_sentence2 = data.substring(data.length()-10, data.length()-9); //@열
 
-//        for(int i=0 ; i<first_sentence.length ; i++)
-//        {
-//            System.out.println("first_sentence["+i+"] : "+first_sentence[i]);
-//        }
         textView4 = (findViewById(R.id.textView4));
         textView5 = (findViewById(R.id.textView5));
         textView6 = (findViewById(R.id.textView6));

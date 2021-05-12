@@ -120,14 +120,6 @@ public class MainActivity extends AppCompatActivity{
         });
     }
 
-    /* 팝업창 */
-    public void mOnPopupClick(String str){
-        //데이터 담아서 팝업(액티비티) 호출
-        Intent intent = new Intent(this, PopUpActivity.class);
-        intent.putExtra("data", str);
-        startActivityForResult(intent, 1);
-    }
-
     private void startRecognition() {
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         intent.putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE, getPackageName());
