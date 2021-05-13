@@ -15,11 +15,8 @@ public class Beverage {
     private Long id;
 
     private String name;
-
     private int price;
-
     private String type;
-
     private int size;
 
     @Override
