@@ -3,8 +3,8 @@ import numpy as np
 import random
 
 
-bp2 = np.loadtxt('first_dataset_1.csv', delimiter=',', dtype=np.float32)
-bp = np.loadtxt('first_dataset_2.csv', delimiter=',', dtype=np.float32)
+bp2 = np.loadtxt('first_dataset_0513_1.csv', delimiter=',', dtype=np.float32)
+bp = np.loadtxt('first_dataset_0513_2.csv', delimiter=',', dtype=np.float32)
 
 
 #(x_train, y_train),(x_test, y_test) = bp.load_data()
@@ -16,7 +16,7 @@ y_test = bp2[:, [-1]]
 print(x_train[:5],y_train[:5])
 print(x_test[:5],y_test[:5])
 
-X = tf.keras.layers.Input(shape=[5])
+X = tf.keras.layers.Input(shape=[10])
 H = tf.keras.layers.Dense(8)(X)
 H = tf.keras.layers.BatchNormalization()(H)
 H = tf.keras.layers.Activation('swish')(H)
@@ -46,4 +46,4 @@ print(y_test[:5])
 
 print(model.get_weights())
 
-model.save_weights('bp3_checkpoint')
+model.save_weights('bp0513_checkpoint')

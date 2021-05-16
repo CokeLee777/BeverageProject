@@ -2,7 +2,7 @@ import tensorflow as tf
 import cv2 as cv
 import numpy as np
 import ConnectAndData
-import TTS_gtts
+# import TTS_gtts
 import time
 import Server_Connect
 
@@ -135,20 +135,20 @@ while(True):
                         if c == 0:
                             b_name = xy_name[5][6:-1]
                             speakstory = ConnectAndData.connect(b_name)
-                            TTS_gtts.speak(speakstory)
-                            time.sleep(5)
+                            #TTS_gtts.speak(speakstory)
+                            #time.sleep(5)
                             continue
                         elif c == 2:
                             b_name = xy_name[6][6:-1]
                             speakstory = ConnectAndData.connect(b_name)
-                            TTS_gtts.speak(speakstory)
-                            time.sleep(5)
+                            #TTS_gtts.speak(speakstory)
+                            #time.sleep(5)
                             continue
                         elif c == 1:
                             b_name = xy_name[7][6:-1]
                             speakstory = ConnectAndData.connect(b_name)
-                            TTS_gtts.speak(speakstory)
-                            time.sleep(5)
+                            #TTS_gtts.speak(speakstory)
+                            #time.sleep(5)
                             continue
                     b = c
                     

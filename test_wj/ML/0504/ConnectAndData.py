@@ -1,5 +1,5 @@
 def connect(B_name):
-    with open("forconnect8.txt", "r") as f:
+    with open("forconnect8.txt", "rt",encoding='UTF8') as f:
         # data = list(f.read())
         x = list(f.readlines())
         # print("read")
