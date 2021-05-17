@@ -11,7 +11,7 @@ color = [ 83 , 89 , 105]
 one_pixel = np.uint8([[color]])
 hsv = cv.cvtColor(one_pixel, cv.COLOR_BGR2HSV)
 hsv = hsv[0][0]
-threshold = 40
+threshold = 100
 lower_blue1 = np.array([hsv[0], threshold, threshold])
 upper_blue1 = np.array([180, 255, 255])
 lower_blue2 = np.array([0, threshold, threshold])
@@ -23,8 +23,8 @@ cv.namedWindow('img_color')
 cv.namedWindow('img_result')
 
 cam = cv.VideoWriter('0429_train.avi',cv.VideoWriter_fourcc('D', 'I', 'V', 'X'),25,(640,480))
-cap = cv.VideoCapture(0)
-cap2 = cv.VideoCapture(1)
+cap = cv.VideoCapture(1)
+cap2 = cv.VideoCapture(2)
 
 f = open('train_dataset.csv','w', newline='')
 b_number = 0
@@ -53,8 +53,8 @@ while(True):
 
     img_mask12 = cv.inRange(img_hsv2, lower_blue1, upper_blue1)
     img_mask32 = cv.inRange(img_hsv2, lower_blue3, upper_blue3)
-    img_mask_2 = img_mask12 | img_mask22 | img_mask32
     img_mask22 = cv.inRange(img_hsv2, lower_blue2, upper_blue2)
+    img_mask_2 = img_mask12 | img_mask22 | img_mask32
 
     kernel = np.ones((11,11), np.uint8)
     img_mask = cv.morphologyEx(img_mask, cv.MORPH_OPEN, kernel)
@@ -74,15 +74,15 @@ while(True):
         for idx, centroid in enumerate(centroids):
             if stats[idx][0] == 0 and stats[idx][1] == 0:
                 continue
-            if stats2[idx][0] == 0 and stats2[idx][1] == 0:
-                    continue
+            if stats2[idx2][0] == 0 and stats2[idx2][1] == 0:
+                continue
             if np.any(np.isnan(centroid)):
                 continue
             if np.any(np.isnan(centroid2)):
                 continue
 
             x,y,width,height,area = stats[idx]
-            x2,y2,width2,height2,area2 = stats2[idx]
+            x2,y2,width2,height2,area2 = stats2[idx2]
                
             # centerX,centerY = int(centroid[0]), int(centroid[1])
             # print(centerX, centerY)
@@ -112,6 +112,9 @@ while(True):
                     cv.rectangle(img_color, (x,y), (x+width,y+height), (0,0,255))
         
     cam.write(img_color)
+    
+    cv.imshow('img_color2', img_color2)
+    
     cv.imshow('img_color', img_color)
     #cv.imshow('img_mask', img_mask)
     cv.imshow('img_result', img_result)

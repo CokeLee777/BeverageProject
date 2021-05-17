@@ -1,0 +1,2 @@
+model_checkpoint_path: "blue_coin_checkpoint"
+all_model_checkpoint_paths: "blue_coin_checkpoint"
