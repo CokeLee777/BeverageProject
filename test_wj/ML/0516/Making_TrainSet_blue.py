@@ -6,12 +6,13 @@ import csv
 def nothing(x):
     pass
 
-color = [161 , 125 , 68]
+color = [ 83 , 89 , 105]
+#color = [161 , 125 , 68]
 
 one_pixel = np.uint8([[color]])
 hsv = cv.cvtColor(one_pixel, cv.COLOR_BGR2HSV)
 hsv = hsv[0][0]
-threshold = 100
+threshold = 40
 lower_blue1 = np.array([hsv[0], threshold, threshold])
 upper_blue1 = np.array([180, 255, 255])
 lower_blue2 = np.array([0, threshold, threshold])
@@ -23,7 +24,7 @@ cv.namedWindow('img_color')
 cv.namedWindow('img_result')
 
 cam = cv.VideoWriter('0516_train.avi',cv.VideoWriter_fourcc('D', 'I', 'V', 'X'),25,(640,480))
-cap = cv.VideoCapture(0)
+cap = cv.VideoCapture(1)
 
 f = open('train_dataset_bottle_test.csv','w', newline='')
 b_number = 0

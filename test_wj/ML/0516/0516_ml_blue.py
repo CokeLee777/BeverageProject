@@ -12,8 +12,8 @@ import time
 
 def nothing(x):
     pass
-
-color = [161 , 125 , 68]
+color = [ 83 , 89 , 105]
+# color = [161 , 125 , 68]
 
 one_pixel = np.uint8([[color]])
 hsv = cv.cvtColor(one_pixel, cv.COLOR_BGR2HSV)

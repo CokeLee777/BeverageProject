@@ -3,8 +3,8 @@ import numpy as np
 import random
 
 
-bp2 = np.loadtxt('first_dataset_1.csv', delimiter=',', dtype=np.float32)
-bp = np.loadtxt('first_dataset_2.csv', delimiter=',', dtype=np.float32)
+bp2 = np.loadtxt('test_dataset_0518.csv', delimiter=',', dtype=np.float32)
+bp = np.loadtxt('train_dataset_0518.csv', delimiter=',', dtype=np.float32)
 
 
 #(x_train, y_train),(x_test, y_test) = bp.load_data()
@@ -46,4 +46,4 @@ print(y_test[:5])
 
 print(model.get_weights())
 
-model.save_weights('bp3_checkpoint')
+model.save_weights('bp_0518_checkpoint')

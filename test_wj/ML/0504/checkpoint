@@ -1,0 +1,2 @@
+model_checkpoint_path: "bp_0518_checkpoint"
+all_model_checkpoint_paths: "bp_0518_checkpoint"
