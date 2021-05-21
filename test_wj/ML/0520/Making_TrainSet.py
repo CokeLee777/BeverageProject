@@ -1,6 +1,7 @@
 import cv2 as cv
 import numpy as np
 import csv
+from datetime import datetime
 
 
 def nothing(x):
@@ -11,7 +12,7 @@ color = [ 83 , 89 , 105]
 one_pixel = np.uint8([[color]])
 hsv = cv.cvtColor(one_pixel, cv.COLOR_BGR2HSV)
 hsv = hsv[0][0]
-threshold = 20
+threshold = 70
 lower_blue1 = np.array([hsv[0], threshold, threshold])
 upper_blue1 = np.array([180, 255, 255])
 lower_blue2 = np.array([0, threshold, threshold])
@@ -22,8 +23,10 @@ upper_blue3 = np.array([hsv[0], 255, 255])
 cv.namedWindow('img_color')
 cv.namedWindow('img_result')
 
-cam = cv.VideoWriter('0518_testfasds.avi',cv.VideoWriter_fourcc('D', 'I', 'V', 'X'),25,(640,480))
-cap = cv.VideoCapture(1)
+videoname = 'MakingDataSet_' + str(datetime.today().month) + str(datetime.today().day) + '.avi'
+cam = cv.VideoWriter(videoname,cv.VideoWriter_fourcc('D', 'I', 'V', 'X'),25,(640,480))
+cap = cv.VideoCapture(0)
+
 
 
 f = open('test_dataset_0518_fasdkl.csv','w', newline='')

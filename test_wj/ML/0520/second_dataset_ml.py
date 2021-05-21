@@ -1,6 +1,12 @@
+import tensorflow as tf
 import cv2 as cv
 import numpy as np
-import csv
+
+
+#bp = np.loadtxt('first_dataset_2.csv', delimiter=',', dtype=np.float32)
+
+#x_test = bp[:, 0:-1]
+#y_test = bp[:, [-1]]
 
 
 def nothing(x):
@@ -11,7 +17,7 @@ color = [ 83 , 89 , 105]
 one_pixel = np.uint8([[color]])
 hsv = cv.cvtColor(one_pixel, cv.COLOR_BGR2HSV)
 hsv = hsv[0][0]
-threshold = 20
+threshold = 40
 lower_blue1 = np.array([hsv[0], threshold, threshold])
 upper_blue1 = np.array([180, 255, 255])
 lower_blue2 = np.array([0, threshold, threshold])
@@ -22,15 +28,32 @@ upper_blue3 = np.array([hsv[0], 255, 255])
 cv.namedWindow('img_color')
 cv.namedWindow('img_result')
 
-cam = cv.VideoWriter('0518_testfasds.avi',cv.VideoWriter_fourcc('D', 'I', 'V', 'X'),25,(640,480))
+cam = cv.VideoWriter('0429_train.avi',cv.VideoWriter_fourcc('D', 'I', 'V', 'X'),25,(640,480))
 cap = cv.VideoCapture(1)
 
 
-f = open('test_dataset_0518_fasdkl.csv','w', newline='')
 b_number = 0
+model = tf.keras.models.Sequential([
+    tf.keras.layers.Input((5,)),
+    tf.keras.layers.Dense(8),
+    tf.keras.layers.BatchNormalization(),
+    tf.keras.layers.Activation('swish'),
+    tf.keras.layers.Dense(8),
+    tf.keras.layers.BatchNormalization(),
+    tf.keras.layers.Activation('swish'),
+    tf.keras.layers.Dense(8),
+    tf.keras.layers.BatchNormalization(),
+    tf.keras.layers.Activation('swish'),
+    tf.keras.layers.Dense(1)
+])
 
+
+model.load_weights('bp3_checkpoint')
+model.summary()
+#print(model.predict(x_test[:1]))
+#print(x_test[:1])
 while(True):
-    wr = csv.writer(f)
+    
     ret,img_color = cap.read()
     height, width = img_color.shape[:2]
     #print(img_color.shape[:2])
@@ -75,22 +98,38 @@ while(True):
         #     b_number = input("해당되는 번호를 누르세요\n")
         #     key = key = cv.waitKey(1)
         # wr.writerow([centerX,centerY,width,height,area,b_number])
-
-
-        if  450 > height > 60:
-            if 360 > width > 40:
-                if key == ord(' '):
-                    b_number = input("해당되는 번호를 누르세요\n")
-                    key = key = cv.waitKey(1)
-                wr.writerow([centerX,centerY,width,height,area,b_number])
+       
+        if  450 > height > 100:
+            if 360 > width > 50:
+                
                 #print(centerX, centerY)
                 # print(height)
-                cv.putText(img_color,'X : ' + str(centerX), (10, 20), cv.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0), 1, lineType=cv.LINE_AA)
-                cv.putText(img_color,'Y : ' + str(centerY), (10, 50), cv.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0), 1, lineType=cv.LINE_AA)
-                cv.putText(img_color,'Area : ' + str(area), (10, 80), cv.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0), 1, lineType=cv.LINE_AA)
-                cv.circle(img_color, (centerX, centerY), 10, (0,0,255), 10)
-                cv.rectangle(img_color, (x,y), (x+width,y+height), (0,0,255))
-    
+                #cv.putText(img_color,'X : ' + str(centerX), (10, 20), cv.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0), 1, lineType=cv.LINE_AA)
+                #cv.putText(img_color,'Y : ' + str(centerY), (10, 50), cv.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0), 1, lineType=cv.LINE_AA)
+                #cv.putText(img_color,'Area : ' + str(area), (10, 80), cv.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0), 1, lineType=cv.LINE_AA)
+                #cv.circle(img_color, (centerX, centerY), 10, (0,0,255), 10)
+                #cv.rectangle(img_color, (x,y), (x+width,y+height), (0,0,255))
+
+                result = [[centerX,centerY,width,height,area]]
+                predictions = model.predict(result)
+                
+
+                with tf.compat.v1.Session() as sess:
+                
+                    print(" 실 예측값 : ")
+                    print(predictions)
+                    print(" 근사 예측값 ")
+                    a = list(map(float, predictions))
+                    
+                    print(round(a[0]))
+
+                    cv.putText(img_color,'Real : ' + str(predictions), (10, 20), cv.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0), 1, lineType=cv.LINE_AA)
+                    cv.putText(img_color,'About : ' + str(round(a[0])), (10, 50), cv.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0), 1, lineType=cv.LINE_AA)
+                    
+                    
+
+                    #print(round(a))
+
     cam.write(img_color)
     cv.imshow('img_color', img_color)
     #cv.imshow('img_mask', img_mask)
@@ -99,8 +138,8 @@ while(True):
     # ESC 키누르면 종료
     if cv.waitKey(1) & 0xFF == 27:
         cam.release()
-        f.close()
         print('영상을 종료합니다. 녹화가 진행되었습니다.')
         break
 
 cv.destroyAllWindows()
+
