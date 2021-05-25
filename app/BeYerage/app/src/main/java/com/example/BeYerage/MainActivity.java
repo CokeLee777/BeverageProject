@@ -158,10 +158,10 @@ public class MainActivity extends AppCompatActivity{
                     public void onResponse(String response) {
                         startTTS(response);
                         Log.d("result", response);
-                        //mOnPopupClick(response);
-                        Intent intent = new Intent(getBaseContext(), DetailActivity.class);
-                        intent.putExtra("data", response);
-                        startActivityForResult(intent, 1);
+                        //여기는 에러먹음
+//                        Intent intent = new Intent(getBaseContext(), DetailActivity.class);
+//                        intent.putExtra("data", response);
+//                        startActivityForResult(intent, 1);
                     }
                 },
                 // 에러 발생 시
@@ -243,6 +243,15 @@ public class MainActivity extends AppCompatActivity{
         }
     }
 
+    private void gointent(String string){
+        String str = string.substring(9);
+        if(!str.equals("없습니다.")){
+            Intent intent = new Intent(getBaseContext(), DetailActivity.class);
+            intent.putExtra("data", string);
+            startActivityForResult(intent, 1);
+        }
+    }
+
     private void startTTS(String result){
         //음료 위치 tts 안내
         tts2 = new TextToSpeech(this, status -> {
@@ -250,9 +259,7 @@ public class MainActivity extends AppCompatActivity{
                 //언어 선택
                 tts2.setLanguage(Locale.KOREAN);
                 shopService.voiceGuidance2(tts2, result);
-//                if (!result.equals("찾으시는 음료가 없습니다.")){
-//                    mOnPopupClick(result);
-//                }
+                gointent(result);
             }
         });
     }
