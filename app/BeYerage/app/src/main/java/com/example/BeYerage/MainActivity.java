@@ -158,10 +158,6 @@ public class MainActivity extends AppCompatActivity{
                     public void onResponse(String response) {
                         startTTS(response);
                         Log.d("result", response);
-                        //여기는 에러먹음
-//                        Intent intent = new Intent(getBaseContext(), DetailActivity.class);
-//                        intent.putExtra("data", response);
-//                        startActivityForResult(intent, 1);
                     }
                 },
                 // 에러 발생 시
