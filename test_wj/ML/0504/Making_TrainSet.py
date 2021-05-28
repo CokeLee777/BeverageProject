@@ -11,7 +11,7 @@ color = [ 83 , 89 , 105]
 one_pixel = np.uint8([[color]])
 hsv = cv.cvtColor(one_pixel, cv.COLOR_BGR2HSV)
 hsv = hsv[0][0]
-threshold = 40
+threshold = 20
 lower_blue1 = np.array([hsv[0], threshold, threshold])
 upper_blue1 = np.array([180, 255, 255])
 lower_blue2 = np.array([0, threshold, threshold])
@@ -22,11 +22,11 @@ upper_blue3 = np.array([hsv[0], 255, 255])
 cv.namedWindow('img_color')
 cv.namedWindow('img_result')
 
-cam = cv.VideoWriter('0429_train.avi',cv.VideoWriter_fourcc('D', 'I', 'V', 'X'),25,(640,480))
-cap = cv.VideoCapture(0)
+cam = cv.VideoWriter('0518_testfasds.avi',cv.VideoWriter_fourcc('D', 'I', 'V', 'X'),25,(640,480))
+cap = cv.VideoCapture(1)
 
 
-f = open('train_dataset.csv','w', newline='')
+f = open('test_dataset_0518_fasdkl.csv','w', newline='')
 b_number = 0
 
 while(True):
@@ -77,8 +77,8 @@ while(True):
         # wr.writerow([centerX,centerY,width,height,area,b_number])
 
 
-        if  450 > height > 100:
-            if 360 > width > 50:
+        if  450 > height > 60:
+            if 360 > width > 40:
                 if key == ord(' '):
                     b_number = input("해당되는 번호를 누르세요\n")
                     key = key = cv.waitKey(1)
