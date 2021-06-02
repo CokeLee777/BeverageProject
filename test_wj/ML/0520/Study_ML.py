@@ -17,10 +17,10 @@ print(x_train[:5],y_train[:5])
 print(x_test[:5],y_test[:5])
 
 X = tf.keras.layers.Input(shape=[5])
-H = tf.keras.layers.Dense(8)(X)
+H = tf.keras.layers.Dense(16)(X)
 H = tf.keras.layers.BatchNormalization()(H)
 H = tf.keras.layers.Activation('swish')(H)
-H = tf.keras.layers.Dense(8)(H)
+H = tf.keras.layers.Dense(16)(H)
 H = tf.keras.layers.BatchNormalization()(H)
 H = tf.keras.layers.Activation('swish')(H)
 H = tf.keras.layers.Dense(8)(H)
@@ -46,4 +46,4 @@ print(y_test[:5])
 
 print(model.get_weights())
 
-model.save_weights('bp_0518_checkpoint')
+model.save_weights('bp_0602_checkpoint')
