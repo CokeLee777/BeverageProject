@@ -57,13 +57,5 @@ public class AndroidController {
         }
     }
 
-//    @PostMapping(value = "/beverageLocationInfoByJson/android", produces = MediaType.APPLICATION_JSON_VALUE)
-//    public BeverageLocationJsonForm beverageLocationInfoByJson(@RequestParam("beverageLocationName") String beverageLocationName) throws JsonProcessingException {
-//        BeverageLocationJsonForm beverageLocationJsonForm = beverageLocationService.findObjectByName(beverageLocationName);
-//
-//        //log.info("row={} column={}", beverageLocationJsonForm.getRow(), beverageLocationJsonForm.getColumn());
-//
-//        return beverageLocationJsonForm;
-//    }
-
 }
+
